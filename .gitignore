@@ -174,3 +174,5 @@ yarn-error.log*
 
 .terraform
 .terraform.lock.hcl
+
+env

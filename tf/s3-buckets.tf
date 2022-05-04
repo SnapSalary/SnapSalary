@@ -1,19 +1,20 @@
-resource "aws_s3_bucket" "frontend_root" {
-  bucket = var.AWS_S3_BUCKET
-}
-
 resource "aws_s3_bucket" "frontend" {
   bucket = "www.${var.AWS_S3_BUCKET}"
 }
 
-resource "aws_s3_bucket_acl" "frontend-acl" {
-  bucket = aws_s3_bucket.frontend.bucket
-  acl    = "public-read"
+resource "aws_s3_bucket" "frontend_root" {
+  bucket = var.AWS_S3_BUCKET
 }
 
-resource "aws_s3_bucket_acl" "frontend_root-acl" {
-  bucket = aws_s3_bucket.frontend_root.bucket
-  acl    = "public-read"
+resource "aws_s3_bucket_public_access_block" "block_frontend" {
+  bucket = aws_s3_bucket.frontend.bucket
+  block_public_acls = true
+  block_public_policy = true
+}
+
+resource "aws_s3_bucket_acl" "frontend-acl" {
+  bucket = aws_s3_bucket.frontend.bucket
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_policy" "frontend_policy" {
@@ -23,18 +24,14 @@ resource "aws_s3_bucket_policy" "frontend_policy" {
 
 data "aws_iam_policy_document" "iam_policy" {
   statement {
-    sid    = "AllowPublicRead"
-    effect = "Allow"
-
+    sid = "1"
+    actions = ["S3:GetObject"]
     resources = [
       "arn:aws:s3:::www.${var.AWS_S3_BUCKET}/*",
     ]
-
-    actions = ["S3:GetObject"]
-
     principals {
-      type        = "*"
-      identifiers = ["*"]
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.prod.iam_arn]
     }
   }
 }
@@ -43,14 +40,6 @@ resource "aws_s3_bucket_website_configuration" "frontend" {
   bucket = aws_s3_bucket.frontend.bucket
   index_document {
     suffix = "index.html"
-  }
-}
-
-resource "aws_s3_bucket_website_configuration" "frontend_root" {
-  bucket = aws_s3_bucket.frontend_root.bucket
-  redirect_all_requests_to {
-    host_name = aws_s3_bucket.frontend.bucket
-    protocol = "https"
   }
 }
 
