@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket_website_configuration" "frontend" {
-  bucket = snapsalary-frontend
+  bucket = "snapsalary-frontend"
   index_document {
     suffix = "index.html"
   }
