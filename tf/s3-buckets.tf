@@ -1,18 +1,14 @@
 resource "aws_s3_bucket" "frontend" {
-  bucket = "${var.bucket_name}"
-}
-
-data "aws_s3_bucket" "selected-bucket" {
-  bucket = aws_s3_bucket.frontend.bucket
+  bucket = var.AWS_S3_BUCKET
 }
 
 resource "aws_s3_bucket_acl" "bucket-acl" {
-  bucket = data.aws_s3_bucket.selected-bucket.id
+  bucket = aws_s3_bucket.frontend.bucket
   acl    = "public-read"
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = data.aws_s3_bucket.selected-bucket.id
+  bucket = aws_s3_bucket.frontend.bucket
   policy = data.aws_iam_policy_document.iam_policy.json
 }
 
@@ -31,5 +27,12 @@ data "aws_iam_policy_document" "iam_policy" {
       type        = "*"
       identifiers = ["*"]
     }
+  }
+}
+
+resource "aws_s3_bucket_website_configuration" "frontend" {
+  bucket = aws_s3_bucket.frontend.bucket
+  index_document {
+    suffix = "index.html"
   }
 }
