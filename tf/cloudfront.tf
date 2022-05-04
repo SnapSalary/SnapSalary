@@ -21,7 +21,7 @@ resource "aws_cloudfront_distribution" "frontend" {
   comment             = "Production frontend for SnapSalary"
   default_root_object = "index.html"
 
-  aliases = [aws_s3_bucket.frontend.bucket, aws_s3_bucket.frontend_root.bucket]
+  aliases = [aws_s3_bucket.frontend.bucket, var.AWS_S3_BUCKET]
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]

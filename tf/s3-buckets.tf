@@ -2,10 +2,6 @@ resource "aws_s3_bucket" "frontend" {
   bucket = "www.${var.AWS_S3_BUCKET}"
 }
 
-resource "aws_s3_bucket" "frontend_root" {
-  bucket = var.AWS_S3_BUCKET
-}
-
 resource "aws_s3_bucket_public_access_block" "block_frontend" {
   bucket              = aws_s3_bucket.frontend.bucket
   block_public_acls   = true
