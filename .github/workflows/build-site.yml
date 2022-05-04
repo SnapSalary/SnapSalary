@@ -1,0 +1,17 @@
+name: Build React Application
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Output build files
+        uses: actions/setup-node@v1
+        with:
+          node-version: 17.9.0
+      - run: npm run build
+      - run: ls build
