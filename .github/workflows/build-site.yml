@@ -1,18 +1,47 @@
-name: Build React Application
+name: Build and Setup React Application
 on:
   push:
     branches: [ main ]
 
 jobs:
   build:
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    name: Build
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v2
       - name: Output build files
         uses: actions/setup-node@v1
         with:
           node-version: 17.9.0
-      - run: npm install
-      - run: npm run build
-      - run: ls build
+        run: npm install
+        run: npm run build
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        working-directory: ./tf
+        continue-on-error: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ./tf
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ./tf
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        working-directory: ./tf
+        continue-on-error: true
+
+
