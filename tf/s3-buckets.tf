@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "frontend_root" {
-  bucket = "www.${var.AWS_S3_BUCKET}"
+  bucket = var.AWS_S3_BUCKET
 }
 
 resource "aws_s3_bucket" "frontend" {
-  bucket = var.AWS_S3_BUCKET
+  bucket = "www.${var.AWS_S3_BUCKET}"
 }
 
 resource "aws_s3_bucket_acl" "frontend-acl" {
@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "iam_policy" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:s3:::${var.AWS_S3_BUCKET}/*",
+      "arn:aws:s3:::www.${var.AWS_S3_BUCKET}/*",
     ]
 
     actions = ["S3:GetObject"]
