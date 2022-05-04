@@ -21,11 +21,6 @@ resource "aws_s3_bucket_policy" "frontend_policy" {
   policy = data.aws_iam_policy_document.iam_policy.json
 }
 
-resource "aws_s3_bucket_policy" "frontend_root_policy" {
-  bucket = aws_s3_bucket.frontend_root.bucket
-  policy = data.aws_iam_policy_document.iam_policy.json
-}
-
 data "aws_iam_policy_document" "iam_policy" {
   statement {
     sid    = "AllowPublicRead"
