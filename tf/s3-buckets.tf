@@ -6,22 +6,22 @@ resource "aws_s3_bucket" "frontend" {
   bucket = var.AWS_S3_BUCKET
 }
 
-resource "aws_s3_bucket_acl" "bucket-acl" {
+resource "aws_s3_bucket_acl" "frontend-acl" {
   bucket = aws_s3_bucket.frontend.bucket
   acl    = "public-read"
 }
 
-resource "aws_s3_bucket_acl" "bucket-acl" {
+resource "aws_s3_bucket_acl" "frontend_root-acl" {
   bucket = aws_s3_bucket.frontend_root.bucket
   acl    = "public-read"
 }
 
-resource "aws_s3_bucket_policy" "bucket_policy" {
+resource "aws_s3_bucket_policy" "frontend_policy" {
   bucket = aws_s3_bucket.frontend.bucket
   policy = data.aws_iam_policy_document.iam_policy.json
 }
 
-resource "aws_s3_bucket_policy" "bucket_policy" {
+resource "aws_s3_bucket_policy" "frontend_root_policy" {
   bucket = aws_s3_bucket.frontend_root.bucket
   policy = data.aws_iam_policy_document.iam_policy.json
 }
@@ -52,6 +52,7 @@ resource "aws_s3_bucket_website_configuration" "frontend" {
 }
 
 resource "aws_s3_bucket_website_configuration" "frontend_root" {
+  bucket = aws_s3_bucket.frontend_root.bucket
   redirect_all_requests_to {
     host_name = aws_s3_bucket.frontend.bucket
     protocol = "https"
