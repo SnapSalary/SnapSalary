@@ -5,6 +5,11 @@ terraform {
       version = "~> 3.0"
     }
   }
+  backend "s3" {
+    bucket = "snapsalary-states"
+    key    = "states"
+    region = "us-west-2"
+  }
 }
 
 provider "aws" {
