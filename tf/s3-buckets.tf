@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "iam_policy" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:s3:::${var.bucket_name}/*",
+      "arn:aws:s3:::${var.AWS_S3_BUCKET}/*",
     ]
 
     actions = ["S3:GetObject"]
@@ -35,4 +35,12 @@ resource "aws_s3_bucket_website_configuration" "frontend" {
   index_document {
     suffix = "index.html"
   }
+}
+
+resource "aws_s3_bucket_object" "frontend" {
+  for_each = fileset("../build/", "*")
+  bucket = aws_s3_bucket.frontend.bucket
+  key = each.value
+  source = "../build/${each.value}"
+  etag = filemd5("../build/${each.value}")
 }
