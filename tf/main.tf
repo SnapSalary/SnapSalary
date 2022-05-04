@@ -2,18 +2,18 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      Version = "~> 3.0"
+      version = "~> 3.0"
     }
   }
+}
 
-  provider "aws" {
-    region = "us-west-2"
-  }
+provider "aws" {
+  region = "us-west-2"
+}
 
-  resource "aws_s3_bucket_website_configuration" "frontend" {
-    bucket = snapsalary-frontend
-    index_document {
-      suffix = "index.html"
-    }
+resource "aws_s3_bucket_website_configuration" "frontend" {
+  bucket = snapsalary-frontend
+  index_document {
+    suffix = "index.html"
   }
 }
