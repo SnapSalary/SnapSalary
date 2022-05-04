@@ -1,4 +1,4 @@
-name: Build and Setup React Application
+name: Build and Setup React Application in S3
 on:
   push:
     branches: [ main ]
@@ -43,5 +43,3 @@ jobs:
         run: terraform plan -no-color
         working-directory: ./tf
         continue-on-error: true
-
-
