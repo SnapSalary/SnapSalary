@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <Logo />
         <p>
-          Future home of SnapSalary. Come find your next job!
+          Future home of SnapSalary.<br/>Come find your next job!
         </p>
       </header>
     </div>
