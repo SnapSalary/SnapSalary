@@ -43,5 +43,5 @@ resource "aws_s3_bucket_object" "frontend" {
   key = each.value
   source = "../build/${each.value}"
   etag = filemd5("../build/${each.value}")
-  content_type = lookup(local.mime_types, split(".", each.value)[length(split(".", each.value)) -1])
+  content_type = lookup(var.mime_types, split(".", each.value)[length(split(".", each.value)) -1])
 }
