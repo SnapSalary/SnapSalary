@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "frontend" {
     Environment = "production"
   }
   viewer_certificate {
-    acm_certificate_arn      = "arn:aws:acm:us-east-1:605557326547:certificate/e82fd265-83e3-4375-a37c-6c15b2bebe97"
+    acm_certificate_arn      = aws_acm_certificate_validation.prod.certificate_arn
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
   }
