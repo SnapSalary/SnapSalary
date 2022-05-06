@@ -10,7 +10,7 @@ export const getRDSSecret = (): Promise<rdsSecret> => {
   const SecretId = 'RDS_SECRET';
   return new Promise((resolve, reject) => {
     if (secret === undefined) {
-      console.log('Keys not found in storage');
+      console.log('RDS keys not found in storage');
       client.getSecretValue({SecretId}, (err, data) => {
         if (err) {
           reject(err);
