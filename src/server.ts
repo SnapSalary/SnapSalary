@@ -7,8 +7,8 @@
 import express, { Application } from "express";
 //import "dotenv/config";
 //import cors from "cors";
-//import { getRDSSecret } from "./secrets";
-//import { initDBTables } from "./db_connection";
+import { getRDSSecret } from "./secrets";
+import { initDBTables } from "./db_connection";
 import routes from "./routes";
 
 async function main() {
@@ -18,17 +18,17 @@ async function main() {
 
 	app.use(routes);
 
+	/*
 	const server = await app.listen(port, () => {
 		console.log("Server is running");
 	});
+	*/
 
-	/*
 	app.listen(port, async (): Promise<void> => {
 		await initDBTables(await getRDSSecret());
 
 		console.log(`Connected on port ${port}`);
 	});
-  */
 }
 
 main();
