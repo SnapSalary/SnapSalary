@@ -1,16 +1,34 @@
-import express, {Application} from 'express';
-import {getRDSSecret} from './secrets';
-import {initDBTables} from './db_connection';
-import routes from './routes';
+/* eslint-disable require-jsdoc */
+/* eslint-disable no-unused-vars */
+/* eslint-disable quotes */
+/* eslint-disable no-tabs */
+/* eslint-disable indent */
+/* eslint-disable spaced-comment */
+import express, { Application } from "express";
+//import "dotenv/config";
+//import cors from "cors";
+//import { getRDSSecret } from "./secrets";
+//import { initDBTables } from "./db_connection";
+import routes from "./routes";
 
-const app: Application = express();
+async function main() {
+	const app: Application = express();
 
-const port = 3000;
+	const port = 3000;
 
-app.use(routes);
+	app.use(routes);
 
-app.listen(port, async (): Promise<void> => {
-  await initDBTables(await getRDSSecret());
+	const server = await app.listen(port, () => {
+		console.log("Server is running");
+	});
 
-  console.log(`Connected on port ${port}`);
-});
+	/*
+	app.listen(port, async (): Promise<void> => {
+		await initDBTables(await getRDSSecret());
+
+		console.log(`Connected on port ${port}`);
+	});
+  */
+}
+
+main();
