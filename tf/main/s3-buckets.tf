@@ -40,7 +40,7 @@ resource "aws_s3_bucket_website_configuration" "frontend" {
 }
 
 resource "aws_s3_bucket_object" "frontend" {
-  for_each     = fileset("../build/", "**/*.*")
+  for_each     = fileset("../../build/", "**/*.*")
   bucket       = aws_s3_bucket.frontend.bucket
   key          = each.value
   source       = "../build/${each.value}"
