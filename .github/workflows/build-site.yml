@@ -40,22 +40,22 @@ jobs:
 
       - name: Terraform fmt
         id: fmt
-        run: cd ${{ TF_DIR }} && terraform fmt -check
+        run: cd ${{ env.TF_DIR }} && terraform fmt -check
         continue-on-error: true
 
       - name: Terraform Init
         id: init
-        run: cd ${{ TF_DIR }} && terraform init
+        run: cd ${{ env.TF_DIR }} && terraform init
 
       - name: Terraform Validate
         id: validate
-        run: cd ${{ TF_DIR }} && terraform validate -no-color
+        run: cd ${{ env.TF_DIR }} && terraform validate -no-color
 
       - name: Terraform Plan
         id: plan
-        run: cd ${{ TF_DIR }} && terraform plan -no-color -input=false
+        run: cd ${{ env.TF_DIR }} && terraform plan -no-color -input=false
         continue-on-error: true
 
       - name: Terraform Apply
         id: apply
-        run: cd ${{ TF_DIR }} && terraform apply -auto-approve -input=false
+        run: cd ${{ env.TF_DIR }} && terraform apply -auto-approve -input=false
