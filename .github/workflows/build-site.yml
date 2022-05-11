@@ -38,32 +38,27 @@ jobs:
       - name: Build Application
         run: npm run build
 
-      - name: Echo branch
-        run: echo ${{ env.TF_DIR }}
+      - name: Change directory
+        run: cd ${{ env.TF_DIR }}
 
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
-        working-directory: ${{ env.TF_DIR }}
         continue-on-error: true
 
       - name: Terraform Init
         id: init
         run: terraform init
-        working-directory: ${{ env.TF_DIR }}
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: ${{ env.TF_DIR }}
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color -input=false
-        working-directory: ${{ env.TF_DIR }}
         continue-on-error: true
 
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve -input=false
-        working-directory: ${{ env.TF_DIR }}
