@@ -6,8 +6,7 @@
 	"scripts": {
 		"build": "npx tsc",
 		"start": "nodemon ./dist/server.js",
-		"dev": "concurrently -k \"npx tsc -w \" \"nodemon ./dist/server.js\"",
-		"seed": "npx tsc && node dist/database/seed.js"
+		"dev": "concurrently -k \"npx tsc -w \" \"nodemon ./dist/server.js\""
 	},
 	"repository": {
 		"type": "git",

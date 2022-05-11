@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-spacing */
 /* eslint-disable require-jsdoc */
 /* eslint-disable no-unused-vars */
 /* eslint-disable quotes */
@@ -9,6 +10,7 @@ import express, { Application } from "express";
 //import cors from "cors";
 import { getRDSSecret } from "./secrets";
 import { initDBTables } from "./db_connection";
+//import { test } from "./db_connection";
 import routes from "./routes";
 
 async function main() {
@@ -26,6 +28,7 @@ async function main() {
 
 	app.listen(port, async (): Promise<void> => {
 		await initDBTables(await getRDSSecret());
+		//await test(await getRDSSecret());
 
 		console.log(`Connected on port ${port}`);
 	});
