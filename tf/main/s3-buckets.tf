@@ -43,7 +43,7 @@ resource "aws_s3_bucket_object" "frontend" {
   for_each     = fileset("../../build/", "**/*.*")
   bucket       = aws_s3_bucket.frontend.bucket
   key          = each.value
-  source       = "../build/${each.value}"
-  etag         = filemd5("../build/${each.value}")
+  source       = "../../build/${each.value}"
+  etag         = filemd5("../../build/${each.value}")
   content_type = lookup(var.mime_types, split(".", each.value)[length(split(".", each.value)) - 1])
 }
