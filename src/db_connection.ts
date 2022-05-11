@@ -13,6 +13,7 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
 			first_name VARCHAR(100) NOT NULL,
 			last_name VARCHAR(100) NOT NULL,
 			email VARCHAR(100) UNIQUE NOT NULL,
+			password INT UNIQUE NOT NULL,
 			PRIMARY KEY(user_id)
 		);
 		
@@ -64,22 +65,22 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
 	await conn.end();
 };
 
-///test <-- REMOVE LATER!!!
-//export const test = async (dbData: type.rdsSecret): Promise<void> => {
+// /test <-- REMOVE LATER!!!
+// export const test = async (dbData: type.rdsSecret): Promise<void> => {
 //	const conn = connect(dbData);
 //	await conn.connect();
 //
 //	await conn
 //		.query(
 //			`
-//SELECT enum_range(NULL::skill_types)
+// SELECT enum_range(NULL::skill_types)
 //		`
 //		)
 //		.then(() => console.log("Successfully executed test"))
 //		.catch((e) => console.log(e));
 //
 //	await conn.end();
-//};
+// };
 
 export const connect = (dbData: type.rdsSecret): Client => {
 	const conn = new Client({
