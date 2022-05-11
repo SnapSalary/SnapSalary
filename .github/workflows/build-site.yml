@@ -38,7 +38,7 @@ jobs:
         run: npm run build
 
       - name: Echo branch
-        run: echo ./tf/$GITHUB_REF_NAME
+        run: ls ./tf/$GITHUB_REF_NAME
 
       - name: Terraform fmt
         id: fmt
