@@ -1,9 +1,3 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable max-len */
-/* eslint-disable comma-dangle */
-/* eslint-disable quotes */
-/* eslint-disable no-tabs */
-/* eslint-disable indent */
 import { Client } from "pg";
 import * as type from "./types";
 
