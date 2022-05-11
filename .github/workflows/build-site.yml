@@ -39,7 +39,7 @@ jobs:
         run: npm run build
 
       - name: Echo branch
-        run: ls ${{ env.TF_DIR }}
+        run: echo ${{ env.TF_DIR }}
 
       - name: Terraform fmt
         id: fmt
