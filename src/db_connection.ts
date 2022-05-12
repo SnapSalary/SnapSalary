@@ -1,13 +1,13 @@
-import { Client } from "pg";
-import * as type from "./types";
+import {Client} from 'pg';
+import * as type from './types';
 
 export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
-	const conn = connect(dbData);
-	await conn.connect();
+  const conn = connect(dbData);
+  await conn.connect();
 
-	await conn
-		.query(
-			`
+  await conn
+      .query(
+          `
 		CREATE TABLE IF NOT EXISTS users(
 			user_id SERIAL UNIQUE NOT NULL,
 			first_name VARCHAR(100) NOT NULL,
@@ -16,30 +16,30 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
 			password INT UNIQUE NOT NULL,
 			PRIMARY KEY(user_id)
 		);
+
+		CREATE TABLE IF NOT EXISTS industry(
+			indust_id serial NOT NULL,
+			industry VARCHAR(100) UNIQUE NOT NULL,
+			PRIMARY KEY(indust_id)
+		);
 		
     CREATE TABLE IF NOT EXISTS companies (
   	  company_id SERIAL UNIQUE NOT NULL,
   	  company_name VARCHAR (100) UNIQUE NOT NULL,
 			country VARCHAR(30),
-			industry_id SERIAL,
+			industry_id SERIAL
+			REFERENCES industry(indust_id),
 			PRIMARY KEY(company_id) 
 		);
 
 		CREATE TABLE IF NOT EXISTS job (
 			job_title VARCHAR(100),
 			company_id serial NOT NULL
-			REFERENCES companies(company_id),
+			REFERENCES companies (company_id),
 			salary NUMERIC(6, 2),
 			skill skill_types,
 			job_id SERIAL UNIQUE NOT NULL,
 			PRIMARY KEY(job_id, company_id)
-		);
-
-		CREATE TABLE IF NOT EXISTS industry(
-			industry_id serial NOT NULL
-			REFERENCES companies(industry_id),
-			industry VARCHAR(100) UNIQUE NOT NULL,
-			PRIMARY KEY(industry_id)
 		);
 		
 		DO $$
@@ -57,12 +57,14 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
 			);
 		EXCEPTION
 				WHEN duplicate_object THEN null;
-		END$$;`
-		)
-		.then(() => console.log("Successfully initialized DB"))
-		.catch((e) => console.log(e));
+		END$$;
+		
+		`,
+      )
+      .then(() => console.log('Successfully initialized DB'))
+      .catch((e) => console.log(e));
 
-	await conn.end();
+  await conn.end();
 };
 
 // /test <-- REMOVE LATER!!!
@@ -83,12 +85,12 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
 // };
 
 export const connect = (dbData: type.rdsSecret): Client => {
-	const conn = new Client({
-		user: dbData.username,
-		password: dbData.password,
-		host: dbData.host,
-		database: "snapsalary",
-		port: 5432,
-	});
-	return conn;
+  const conn = new Client({
+    user: dbData.username,
+    password: dbData.password,
+    host: dbData.host,
+    database: 'snapsalary',
+    port: 5432,
+  });
+  return conn;
 };

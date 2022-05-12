@@ -6,7 +6,8 @@
 	"scripts": {
 		"build": "npx tsc",
 		"start": "nodemon ./dist/server.js",
-		"dev": "concurrently -k \"npx tsc -w \" \"nodemon ./dist/server.js\""
+		"dev": "concurrently -k \"npx tsc -w \" \"nodemon ./dist/server.js\"",
+		"lint:fix": "eslint --fix --ext .ts ."
 	},
 	"repository": {
 		"type": "git",
