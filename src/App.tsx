@@ -1,8 +1,7 @@
 import React from "react";
 import { ReactComponent as Logo } from "./logo.svg";
-import "./App.css";
+import "./styles/App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./main.css";
 
 import { NavBar } from "./components/NavBar";
 import { HomePage } from "./pages/HomePage";
