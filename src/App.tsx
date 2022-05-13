@@ -11,6 +11,8 @@ import {ContactPage} from './pages/ContactPage';
 import {Salaries} from './pages/SalariesPage';
 import {CompaniesPage} from './pages/CompaniesPage';
 import {SearchBar} from './components/SearchBar';
+// import {CompanyList} from './components/CompanyList';
+
 
 function App() {
   return (

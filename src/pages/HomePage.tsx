@@ -1,5 +1,8 @@
 import React from 'react';
+import {CompanyList} from '../components/FeaturedCompanies';
 
 export function HomePage() {
-  return <h1>Home Page</h1>;
+  return (
+    <CompanyList/>
+  );
 }

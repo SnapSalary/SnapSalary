@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import {type} from '@testing-library/user-event/dist/type';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 // import "../styles/styles.css";
@@ -16,6 +18,11 @@ export function NavBar() {
   );
 }
 */
+
+type ButtonProps = {
+  handleClick: () => void;
+}
+
 export function NavBar() {
   return (
     <nav className="bg-gray-800">
@@ -37,12 +44,12 @@ export function NavBar() {
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
-              <img className="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow"></img>
+              <img className="block lg:hidden h-8 w-auto" src="" alt=""></img>
               <h3 className="text-slate-300 font-bold">Snap Salary</h3>
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
-                <NavLink className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page" to={'/'}>Home</NavLink>
+                <NavLink className="text-gray-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page" to={'/'}>Home</NavLink>
 
                 <NavLink className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" to={'/Salaries'}>Salaries</NavLink>
 
