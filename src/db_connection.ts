@@ -8,15 +8,6 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
   await conn
       .query(
           `
-    CREATE TABLE IF NOT EXISTS users(
-      user_id SERIAL UNIQUE NOT NULL,
-      first_name VARCHAR(100) NOT NULL,
-      last_name VARCHAR(100) NOT NULL,
-      email VARCHAR(100) UNIQUE NOT NULL,
-      password INT UNIQUE NOT NULL,
-      PRIMARY KEY(user_id)
-    );
-
     CREATE TABLE IF NOT EXISTS industry(
       indust_id serial NOT NULL,
       industry VARCHAR(100) UNIQUE NOT NULL,
@@ -38,6 +29,8 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
       company_id serial NOT NULL
       REFERENCES companies (company_id),
       salary NUMERIC(6, 2),
+      stocks NUMERIC(6, 2),
+      bonus NUMERIC(6, 2),
       skill skill_types,
       job_id SERIAL UNIQUE NOT NULL,
       PRIMARY KEY(job_id, company_id)
