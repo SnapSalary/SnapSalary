@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "npx tsc",
-		"start": "nodemon ./dist/server.js",
+    "start": "NODE_ENV=development nodemon ./src/server.ts",
 		"dev": "concurrently -k \"npx tsc -w \" \"nodemon ./dist/server.js\"",
 		"lint:fix": "eslint --fix --ext .ts .",
 		"test": "jest --detectOpenHandles"
@@ -14,7 +14,7 @@
 		"type": "git",
 		"url": "git+https://github.com/SnapSalary/SnapSalary-Backend.git"
 	},
-	"author": "SnapSalary Team: Backend Developer Armant T.",
+	"author": "SnapSalary Team",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/SnapSalary/SnapSalary-Backend/issues"
@@ -25,10 +25,7 @@
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.0",
 		"express": "^4.18.1",
-		"package.json": "^2.0.1",
 		"pg": "^8.7.3",
-		"pg-hstore": "^2.3.4",
-		"sequelize": "^6.19.0",
 		"ts-node": "^10.7.0"
 	},
 	"devDependencies": {
@@ -43,13 +40,10 @@
 		"ava": "^4.2.0",
 		"concurrently": "^7.0.0",
 		"eslint": "^8.11.0",
-		"eslint-config-airbnb": "^19.0.4",
-		"eslint-config-airbnb-typescript": "^16.1.4",
 		"eslint-config-google": "^0.14.0",
 		"eslint-import-resolver-typescript": "^2.7.0",
 		"eslint-plugin-import": "^2.25.4",
 		"eslint-plugin-jest": "^26.1.2",
-		"eslint-plugin-jsx-a11y": "^6.5.1",
 		"eslint-plugin-react": "^7.29.4",
 		"jest": "^27.5.1",
 		"node-mocks-http": "^1.11.0",

@@ -11,7 +11,7 @@ router.use(express.urlencoded({extended: true}));
 // GET companies from companies table in DB
 router.get(
     '/get_companies_directory',
-    async (_req: Request, res: Response): Promise<Response> => {
+    async (req: Request, res: Response): Promise<Response> => {
       const conn = connect(await getRDSSecret());
       await conn.connect();
 
@@ -50,9 +50,11 @@ router.post(
       companies (company_name, state, country) 
       VALUES 
       ($3) RETURNING company_id;`,
-                [req.body.company],
-                [req.body.state],
-                [req.body.country],
+                [
+                  req.body.company,
+                  req.body.state,
+                  req.body.country,
+                ],
             )
             .then((response) => {
               data = {
