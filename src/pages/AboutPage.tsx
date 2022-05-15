@@ -1,7 +1,9 @@
-/* eslint-disable react/react-in-jsx-scope */
-// eslint-disable-next-line require-jsdoc
+import React from 'react';
+import {SiteFooter} from '../components/footer';
+
 export function AboutPage() {
   return (
-    <h1 className='font-bold'>
-      About Page</h1>);
+    <><h1 className='font-bold'>
+      About Page</h1><SiteFooter /></>
+  );
 }

@@ -8,18 +8,8 @@ import googleLogo from '../img/google/google.png';
 import amazonLogo from '../img/amazon/amazon.png';
 import netflixLogo from '../img/netflix/netflix.png';
 import {Salaries} from '../pages/SalariesPage';
+import {CompanyProps} from '../types/StateTypes';
 
-// type for company
-export type CompanyProps = {
-    id: number,
-    name: string,
-    imgUri1: string,
-    imgAlt1: string,
-    imgUri2: string,
-    imgAlt2: string,
-    salary: number,
-    exploreButtionClick: () => void
-}
 
 export function Company(props: CompanyProps) {
   const {imgUri1, imgAlt1, imgUri2, imgAlt2, name, salary, exploreButtionClick} = props;
@@ -59,24 +49,24 @@ export function CompanyList() {
       <div className='container w-full px-15 mt-10 m-auto'>
         <div className='flex flex-wrap mx-0'>
           <div className='company1 m-4 '>
-            <Company id={0} name={'Intel'} imgUri1={''} imgAlt1={''} imgUri2={intelLogo} imgAlt2={''} exploreButtionClick={function(): void {
+            <Company id={0} name={'Intel'} salary={0} state={''} country={''} industry_id={''} imgUri1={''} imgAlt1={''} imgUri2={intelLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } } salary={0}></Company>
+            } }></Company>
           </div>
           <div className='company2 m-4'>
             <Company id={1} name={'Google'} imgUri1={''} imgAlt1={''} imgUri2={googleLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } } salary={0}></Company>
+            } } salary={0} state={''} country={''} industry_id={''}></Company>
           </div>
           <div className='company3 m-4'>
             <Company id={0} name={'Amazon'} imgUri1={''} imgAlt1={''} imgUri2={amazonLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } } salary={0}></Company>
+            } } salary={0} state={''} country={''} industry_id={''}></Company>
           </div>
           <div className='company4 m-4'>
             <Company id={0} name={'NetFlix'} imgUri1={''} imgAlt1={''} imgUri2={netflixLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } } salary={0}></Company>
+            } } salary={0} state={''} country={''} industry_id={''}></Company>
           </div>
         </div>
       </div>
