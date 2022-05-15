@@ -1,13 +1,12 @@
 import express, {Router, Request, Response} from 'express';
 import {connect, dbAction} from '../db_connection';
 import {getRDSSecret} from '../secrets';
-import {dataResponse} from '../types';
 const router = Router();
 
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
 
-router.get('/get_companies_directory', async (
+router.get('/companies', async (
     _req: Request,
     res: Response): Promise<Response> => {
   const conn = connect(await getRDSSecret());
@@ -26,7 +25,29 @@ router.get('/get_companies_directory', async (
   });
 });
 
-router.delete('/delete_company', async (
+router.get('/company', async (
+    req: Request,
+    res: Response): Promise<Response> => {
+  const conn = connect(await getRDSSecret());
+  await conn.connect();
+
+  const resp = await conn.query(`
+        SELECT * FROM companies 
+        WHERE company_name = $1;`,
+  [req.body.comany_name]);
+
+  await conn.end();
+
+  return res.status(200).send({
+    data: resp.rows,
+    status: {
+      status_code: 200,
+      message: 'Success',
+    },
+  });
+});
+
+router.delete('/company', async (
     req: Request,
     res: Response): Promise<Response> => {
   console.log(req.body);
@@ -42,13 +63,15 @@ router.delete('/delete_company', async (
   });
 });
 
-router.post('/insert_company', async (
+router.post('/company', async (
     req: Request,
     res: Response): Promise<Response> => {
   console.log(req.body);
   const data = await dbAction(await getRDSSecret(),
-      `INSERT INTO companies (company_name) VALUES ($1) RETURNING company_id;`,
-      ['company_name'],
+      `INSERT INTO companies 
+      (company_name, state, country, industry_id)
+      VALUES ($1, $2, $3, $4) RETURNING company_id;`,
+      ['company_name', 'state', 'country', 'industry_id'],
       req.body);
 
   return res.status(data.status.status_code).send({

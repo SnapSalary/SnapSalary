@@ -59,8 +59,6 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
       .catch((e) => console.log(e));
 
   await conn.end();
-
-  return conn;
 };
 
 export const connect = (dbData: type.rdsSecret): Client => {
@@ -78,7 +76,7 @@ export const connect = (dbData: type.rdsSecret): Client => {
 export const dbAction = async (
     dbData: type.rdsSecret,
     query: string,
-    requiredData?: [any],
+    requiredData?: any[],
     inputData?: any): Promise<type.dataResponse> => {
   let retData: type.dataResponse = {
     data: [],
