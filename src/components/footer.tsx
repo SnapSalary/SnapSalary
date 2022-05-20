@@ -3,7 +3,7 @@ import React from 'react';
 
 export function SiteFooter() {
   return (
-    <footer className="bg-gray-100 text-center lg:text-left">
+    <div className="bottom-0 absolute w-full bg-gray-100 text-center lg:text-left">
       <div className="container p-6 text-gray-800">
         <div className="grid lg:grid-cols-2 gap-4">
           <div className="mb-6 md:mb-0">
@@ -32,7 +32,7 @@ export function SiteFooter() {
                 © 2022 Copyright:
         <a className="text-gray-800" href="https://tailwind-elements.com/"> Snap Salary</a>
       </div>
-    </footer>
+    </div>
   );
 }
 

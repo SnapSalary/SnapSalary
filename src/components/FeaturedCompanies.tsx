@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import path from 'path';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink, Path, Pathname} from 'react-router-dom';
 import {VoidExpression} from 'typescript';
 import intelLogo from '../img/intel/intel.png';
@@ -13,6 +13,9 @@ import {CompanyProps} from '../types/StateTypes';
 
 export function Company(props: CompanyProps) {
   const {imgUri1, imgAlt1, imgUri2, imgAlt2, name, salary, exploreButtionClick} = props;
+
+  const [explore, setExplore] = useState('');
+
 
   useEffect(() => {
     console.log('Company rendered');

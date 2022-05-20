@@ -2,22 +2,7 @@
 import {type} from '@testing-library/user-event/dist/type';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-// import "../styles/styles.css";
-// import "../styles/main.css";
-/*
-export function NavBar() {
-  return (
-    <nav className="navbar-container relative container mx-auto bg-red-500">
-      <NavLink to="/" className="bg-sky-600 hover:bgsky-700">
-        Home
-      </NavLink>
-      <NavLink to="/salaries">Salaries</NavLink>{" "}
-      <NavLink to="/about">About</NavLink>
-      <NavLink to="/contact">Contact</NavLink>
-    </nav>
-  );
-}
-*/
+
 
 type ButtonProps = {
   handleClick: () => void;
@@ -69,29 +54,7 @@ export function NavBar() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
             </button>
-
-            <div className="ml-3 relative">
-
-
-              <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-0">Your Profile</a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-1">Settings</a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-2">Sign out</a>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
-
-      <div className="sm:hidden" id="mobile-menu">
-        <div className="px-2 pt-2 pb-3 space-y-1">
-          <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
-
-          <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
-
-          <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-
-          <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
         </div>
       </div>
     </nav>

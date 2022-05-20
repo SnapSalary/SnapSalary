@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import React from 'react';
+import React, {useEffect} from 'react';
 // import {ReactComponent as Logo} from './logo.svg';
 import './styles/App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
@@ -11,14 +11,22 @@ import {ContactPage} from './pages/ContactPage';
 import {Salaries} from './pages/SalariesPage';
 import {CompaniesPage} from './pages/CompaniesPage';
 import {SearchBar} from './components/SearchBar';
+// import {SiteFooter} from './components/footer';
 // import {CompanyList} from './components/CompanyList';
 
 
 function App() {
+  useEffect(() => {
+    console.log('--App rerenders --');
+  });
+
+
   return (
     <>
       <BrowserRouter>
-        <SearchBar/>
+        <SearchBar onApply={function(filterString: string): void {
+          throw new Error('Function not implemented.');
+        } }/>
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
@@ -26,7 +34,6 @@ function App() {
           <Route path="/companies" element={<CompaniesPage/>}></Route>
           <Route path="/about" element={<AboutPage />}></Route>
           <Route path="/contact" element={<ContactPage />}></Route>
-
         </Routes>
       </BrowserRouter>
     </>
