@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
-import React, {useState} from 'react';
-import data from './mock-data.json'; // Testing reading in data from json file
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import data from '../mock-data.json'; // Testing reading in data from json file
 import '../styles/table.css';
+
 // import {nanoid} from 'nanoid';
 
 type companyProp = {
@@ -14,6 +17,7 @@ type companyProp = {
 }
 
 export function CompanyTable() {
+  const [post, setPost] = useState([]);
   const [companies, setCompanies] = useState(data);
   const [addFormData, setAddFormData] = useState({
     companyName: '',
@@ -23,6 +27,31 @@ export function CompanyTable() {
     salary: '',
   });
 
+
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+        .then((res) => {
+          console.log(res);
+          setPost(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, []);
+
+  /*  useEffect(() => {
+    // eslint-disable-next-line no-unused-vars
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get('/post');
+        if (response && response.data) {
+          setPost(response.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  }, []); */
 
   // Store form value in state
   const handleFormChange = (event:any) => {
@@ -54,9 +83,8 @@ export function CompanyTable() {
     setCompanies(newCompany);
   };
 
-  return <><
-    div className='table-container'>
-    <table className=''>
+  return <><div className='table-container'>
+    <table className='relative'>
       <thead>
         <tr>
           <th>Company Name</th>
@@ -112,7 +140,8 @@ export function CompanyTable() {
       placeholder="Enter an salary..."
       onChange={handleFormChange}
     />
-    <button type="submit">Add</button>
+    <button type="submit" >Add</button>
   </form>
   </>;
 }
+

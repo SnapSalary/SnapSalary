@@ -11,6 +11,7 @@ import {ContactPage} from './pages/ContactPage';
 import {Salaries} from './pages/SalariesPage';
 import {CompaniesPage} from './pages/CompaniesPage';
 import {SearchBar} from './components/SearchBar';
+import { NotFound } from './components/NotFound';
 // import {SiteFooter} from './components/footer';
 // import {CompanyList} from './components/CompanyList';
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/companies" element={<CompaniesPage/>}></Route>
           <Route path="/about" element={<AboutPage />}></Route>
           <Route path="/contact" element={<ContactPage />}></Route>
+          <Route path='*' element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
     </>

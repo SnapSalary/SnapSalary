@@ -15,7 +15,7 @@ td {
   border: 1px solid #ffffff;
   text-align: left;
   padding: 8px;
-  font-size: 32px;
+  font-size: 15px;
 }
 
 th {
@@ -37,5 +37,5 @@ form td:last-child {
 }
 
 form * {
-  font-size: 28px;
+  font-size: 15px;
 }
