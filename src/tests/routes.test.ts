@@ -7,17 +7,17 @@
 /* eslint-disable object-curly-spacing */
 /* eslint-disable no-unused-vars */
 import request from 'supertest';
-import app from "./server";
+import app from "../server";
 
 describe("POST /company", () => {
   describe("when passed company type", () => {
     test("should respond w/ HTTP Status code(200)",
       async () => {
         const response = await request(app).post('/company').send({
-          company_name: "D",
+          company_name: "I",
           state: "OR",
           country: "US",
-          industry: "1",
+          industry_id: "1",
         })
         expect(response.statusCode).toBe(200);
       })
@@ -32,8 +32,18 @@ describe("GET /company", () => {
           company_name: "A",
           state: "OR",
           country: "US",
-          industry: "1",
+          industry_id: "1",
         })
+        expect(response.statusCode).toBe(200);
+      })
+  })
+});
+
+describe("GET /company", () => {
+  describe("when passed nothing", () => {
+    test("should respond w/ HTTP Status code(200)",
+      async () => {
+        const response = await request(app).get('/company').send()
         expect(response.statusCode).toBe(200);
       })
   })
@@ -45,6 +55,18 @@ describe("DELETE /company", () => {
       async () => {
         const response = await request(app).delete('/company').send({
           company_id: "1",
+        })
+        expect(response.statusCode).toBe(200);
+      })
+  })
+});
+
+describe("GET /industry", () => {
+  describe("when passed industry type", () => {
+    test("should respond w/ HTTP Status code(200)",
+      async () => {
+        const response = await request(app).get('/company').send({
+          industry: "A",
         })
         expect(response.statusCode).toBe(200);
       })

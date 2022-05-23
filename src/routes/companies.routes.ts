@@ -34,7 +34,7 @@ router.get('/company', async (
   const resp = await conn.query(`
         SELECT * FROM companies 
         WHERE company_name = $1;`,
-  [req.body.comany_name]);
+  [req.body.company_name]);
 
   await conn.end();
 
