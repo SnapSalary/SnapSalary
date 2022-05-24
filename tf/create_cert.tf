@@ -1,11 +1,10 @@
 resource "aws_acm_certificate" "cert" {
   provider                  = aws.us-east
-  domain_name               = var.AWS_S3_BUCKET
+  domain_name               = var.AWS_S3_BUCKET_STAGING
   validation_method         = "DNS"
-  subject_alternative_names = [aws_s3_bucket.frontend.bucket]
 
   tags = {
-    Environment = "production"
+    Environment = "staging"
   }
 
   lifecycle {
@@ -27,10 +26,10 @@ resource "aws_route53_record" "validate_cert" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = aws_route53_zone.prod.zone_id
+  zone_id         = aws_route53_zone.staging.zone_id
 }
 
-resource "aws_acm_certificate_validation" "prod" {
+resource "aws_acm_certificate_validation" "staging" {
   provider                = aws.us-east
   certificate_arn         = aws_acm_certificate.cert.arn
   validation_record_fqdns = [for record in aws_route53_record.validate_cert : record.fqdn]

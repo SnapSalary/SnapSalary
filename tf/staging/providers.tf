@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket = "snapsalary-states"
-    key    = "states"
+    key    = "staging"
     region = "us-west-2"
   }
 }

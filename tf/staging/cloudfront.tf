@@ -1,27 +1,27 @@
-resource "aws_cloudfront_origin_access_identity" "prod" {
+resource "aws_cloudfront_origin_access_identity" "staging" {
   comment = "Origin Access ID for Production"
 }
 
 locals {
-  s3_origin_id = "S3Frontend"
+  s3_origin_id = "S3Frontend-staging"
 }
 
-resource "aws_cloudfront_distribution" "frontend" {
+resource "aws_cloudfront_distribution" "frontend-staging" {
   origin {
-    domain_name = aws_s3_bucket.frontend.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.frontend-staging.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
 
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.prod.cloudfront_access_identity_path
+      origin_access_identity = aws_cloudfront_origin_access_identity.staging.cloudfront_access_identity_path
     }
   }
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "Production frontend for SnapSalary"
+  comment             = "Staging frontend for SnapSalary"
   default_root_object = "index.html"
 
-  aliases = [aws_s3_bucket.frontend.bucket, var.AWS_S3_BUCKET]
+  aliases = [aws_s3_bucket.frontend-staging.bucket, var.AWS_S3_BUCKET_STAGING]
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
@@ -46,10 +46,10 @@ resource "aws_cloudfront_distribution" "frontend" {
     }
   }
   tags = {
-    Environment = "production"
+    Environment = "staging"
   }
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate_validation.prod.certificate_arn
+    acm_certificate_arn      = aws_acm_certificate_validation.staging.certificate_arn
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
   }
