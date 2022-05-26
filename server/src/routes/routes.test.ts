@@ -9,16 +9,19 @@
 import request from 'supertest';
 import app from "../server";
 
+
+// Tasks before: (i) re-init table (seeding from doggr for instance)
 describe("POST /company", () => {
   describe("when passed company type", () => {
     test("should respond w/ HTTP Status code(200)",
       async () => {
         const response = await request(app).post('/company').send({
-          company_name: "I",
+          company_name: "KK",
           state: "OR",
           country: "US",
           industry_id: "1",
         })
+        console.log(response);
         expect(response.statusCode).toBe(200);
       })
   })
