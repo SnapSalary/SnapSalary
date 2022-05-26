@@ -31,7 +31,7 @@ router.delete('/industry', async (
   console.log(req.body);
   try {
     const data = await dbAction(await getRDSSecret(),
-        `DELETE FROM industry WHERE industry_id = $1`, ['industry_id'],
+        `DELETE FROM industry WHERE industry_id = $1;`, ['industry_id'],
         req.body);
 
     console.log(data);

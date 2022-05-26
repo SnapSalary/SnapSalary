@@ -64,7 +64,7 @@ router.delete('/company', async (
   console.log(req.body);
   try {
     const data = await dbAction(await getRDSSecret(),
-        `DELETE FROM companies WHERE company_id = $1`, ['company_id'],
+        `DELETE FROM companies WHERE company_id = $1;`, ['company_id'],
         req.body);
 
     console.log(data);

@@ -24,7 +24,7 @@ router.delete('/job', async (
     res: Response): Promise<Response> => {
   console.log(req.body);
   const data = await dbAction(await getRDSSecret(),
-      `DELETE FROM job WHERE job_id = $1`, ['id_id'],
+      `DELETE FROM job WHERE job_id = $1`, ['job_id'],
       req.body);
 
   console.log(data);
