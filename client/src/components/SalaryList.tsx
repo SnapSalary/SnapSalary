@@ -16,7 +16,7 @@ type jobProp = {
 }
 
 
-export function SalaryList() {
+export const SalaryList = () => {
   const [jobs, setJobs] = useState(data);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export function SalaryList() {
         </thead>
         <tbody className=''>
           {jobs.map((jobs: any) => (
-            <tr key = {jobs.id} className="w-24 bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
+            <tr key={jobs.id} className="w-24 bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
               <th className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                 {jobs.job_title}
               </th>
@@ -66,6 +66,6 @@ export function SalaryList() {
       </table>
     </div>
   );
-}
+};
 
 

@@ -16,7 +16,7 @@ type companyProp = {
   industry_id: string;
 }
 
-export function CompanyTable() {
+export const CompanyTable = () => {
   const [companies, setCompanies] = useState(data);
   const [addFormData, setAddFormData] = useState({
     company_id: '',
@@ -141,6 +141,6 @@ export function CompanyTable() {
       <button type="submit" >Add</button>
     </form>
   </>;
-}
+};
 
 

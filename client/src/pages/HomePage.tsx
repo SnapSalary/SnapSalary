@@ -5,10 +5,10 @@ import {SalaryList} from '../components/SalaryList';
 // import {SiteFooter} from '../components/footer';
 
 
-export function HomePage() {
+export const HomePage = () => {
   return (
     <><CompanyList />
       <SalaryList />
     </>
   );
-}
+};

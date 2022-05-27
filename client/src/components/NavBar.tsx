@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {type} from '@testing-library/user-event/dist/type';
-import React from 'react';
+import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
-import {Login} from './LoginForm';
 import {useAuth0} from '@auth0/auth0-react';
 import {LoginButton} from './LoginButton';
 
@@ -11,8 +10,8 @@ type ButtonProps = {
 }
 
 
-export function NavBar() {
-  const handleLogIn = (event: React.MouseEvent<HTMLButtonElement>):void => {
+export const NavBar = () => {
+  const handleLogIn = (event: React.MouseEvent<HTMLButtonElement>): void => {
     console.log('Log in Clicked!!!!');
     const [logIn, setLogIn] = useState();
   };
@@ -62,7 +61,7 @@ export function NavBar() {
 
           <LoginButton></LoginButton>
           <button onClick={handleSignUp} className='m-5  text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
-              Sign Up
+            Sign Up
           </button>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button type="button" className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -77,8 +76,5 @@ export function NavBar() {
     </nav>
 
   );
-}
-function useState(): [any, any] {
-  throw new Error('Function not implemented.');
-}
+};
 

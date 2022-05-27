@@ -10,7 +10,7 @@ export type FilterBarProps = {
 }
 
 
-export function SearchBar({onApply}: FilterBarProps) {
+export const SearchBar = ({onApply}: FilterBarProps) => {
   const [filterString, setFilterString] = useState('');
   const [query, setQuery] = useState('');
   const [data, setData] = useState([]);
@@ -65,4 +65,4 @@ export function SearchBar({onApply}: FilterBarProps) {
       </nav>
     </>
   );
-}
+};

@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-export function SiteFooter() {
+export const SiteFooter= ()=> {
   return (
     <div className="absolute bottom-0 absolute w-full bg-gray-100 text-center lg:text-left">
       <div className="container p-6 text-gray-800">
@@ -34,5 +34,5 @@ export function SiteFooter() {
       </div>
     </div>
   );
-}
+};
 

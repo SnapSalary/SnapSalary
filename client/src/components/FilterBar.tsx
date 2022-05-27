@@ -4,7 +4,7 @@ export type FilterBarProps = {
   onApply: (filterString: string) => void,
 }
 
-export function FilterBar({onApply}: FilterBarProps) {
+export const FilterBar = ({onApply}: FilterBarProps) => {
   const [filterString, setFilterString] = useState('');
 
   const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -41,4 +41,4 @@ export function FilterBar({onApply}: FilterBarProps) {
       </button>
     </div>
   );
-}
+};

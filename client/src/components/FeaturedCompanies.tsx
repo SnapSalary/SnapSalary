@@ -11,7 +11,7 @@ import {Salaries} from '../pages/SalariesPage';
 import {CompanyProps} from '../types/StateTypes';
 
 
-export function Company(props: CompanyProps) {
+const Company = (props: CompanyProps) => {
   const {
     imgUri1,
     imgAlt1,
@@ -24,7 +24,7 @@ export function Company(props: CompanyProps) {
   const [explore, setExplore] = useState('');
   const [clickSignIn, setClickSignIn] = useState('');
 
-  const handleViewCompany = (event: React.MouseEvent<HTMLButtonElement>):void => {
+  const handleViewCompany = (event: React.MouseEvent<HTMLButtonElement>): void => {
     console.log('See Company Clicked!!!!');
   };
 
@@ -36,10 +36,10 @@ export function Company(props: CompanyProps) {
     <div>
       <div className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white shadow-xl rounded-lg text-gray-900">
         <div className="rounded-t-lg h-32 overflow-hidden">
-          <img className="object-cover object-top w-full" src={imgUri1} alt={imgAlt1}/>
+          <img className="object-cover object-top w-full" src={imgUri1} alt={imgAlt1} />
         </div>
         <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-          <img className="object-contain h-15 w-15 object-center h-32" src={imgUri2} alt={imgAlt2}/>
+          <img className="object-contain h-15 w-15 object-center h-32" src={imgUri2} alt={imgAlt2} />
         </div>
         <div className="text-center mt-2">
           <h2 className="font-semibold">{name}</h2>
@@ -55,10 +55,10 @@ export function Company(props: CompanyProps) {
       </div>
     </div>
   );
-}
+};
 
 
-export function CompanyList() {
+export const CompanyList = () => {
   return (
     <>
       <div className='container w-full px-15 mt-10 m-auto'>
@@ -66,22 +66,22 @@ export function CompanyList() {
           <div className='company1 m-4 '>
             <Company id={0} name={'Intel'} salary={0} state={''} country={''} industry_id={''} imgUri1={''} imgAlt1={''} imgUri2={intelLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } }></Company>
+            }}></Company>
           </div>
           <div className='company2 m-4'>
             <Company id={1} name={'Google'} imgUri1={''} imgAlt1={''} imgUri2={googleLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } } salary={0} state={''} country={''} industry_id={''}></Company>
+            }} salary={0} state={''} country={''} industry_id={''}></Company>
           </div>
           <div className='company3 m-4'>
             <Company id={0} name={'Amazon'} imgUri1={''} imgAlt1={''} imgUri2={amazonLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } } salary={0} state={''} country={''} industry_id={''}></Company>
+            }} salary={0} state={''} country={''} industry_id={''}></Company>
           </div>
           <div className='company4 m-4'>
             <Company id={0} name={'NetFlix'} imgUri1={''} imgAlt1={''} imgUri2={netflixLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            } } salary={0} state={''} country={''} industry_id={''}></Company>
+            }} salary={0} state={''} country={''} industry_id={''}></Company>
           </div>
         </div>
       </div>
@@ -89,4 +89,4 @@ export function CompanyList() {
     </>
 
   );
-}
+};
