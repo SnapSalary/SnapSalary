@@ -8,7 +8,6 @@ export function FilterBar({onApply}: FilterBarProps) {
   const [filterString, setFilterString] = useState('');
 
   const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-    // onApply(filterString); // this is a bad idea, if you want to do this: use lodash.debounce!
     setFilterString(event.target.value);
   };
 

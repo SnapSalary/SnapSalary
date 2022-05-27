@@ -12,10 +12,21 @@ import {CompanyProps} from '../types/StateTypes';
 
 
 export function Company(props: CompanyProps) {
-  const {imgUri1, imgAlt1, imgUri2, imgAlt2, name, salary, exploreButtionClick} = props;
+  const {
+    imgUri1,
+    imgAlt1,
+    imgUri2,
+    imgAlt2,
+    name,
+    salary,
+  } = props;
 
   const [explore, setExplore] = useState('');
+  const [clickSignIn, setClickSignIn] = useState('');
 
+  const handleViewCompany = (event: React.MouseEvent<HTMLButtonElement>):void => {
+    console.log('See Company Clicked!!!!');
+  };
 
   useEffect(() => {
     console.log('Company rendered');
@@ -38,7 +49,8 @@ export function Company(props: CompanyProps) {
 
         </div>
         <div className="p-3 border-t mx-8 mt-2">
-          <button onClick={exploreButtionClick} className="block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-8 py-2">See Company</button>
+          <button onClick={handleViewCompany} className="block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-8 py-2">See Company</button>
+
         </div>
       </div>
     </div>

@@ -4,12 +4,12 @@ import {CompanyTable} from '../components/CompanyTable';
 
 export function CompaniesPage() {
   return (
-    <><body>
+    <>
       <CompanyTable />
       <footer>
         <SiteFooter/>
       </footer>
-    </body>
+
     </>
   );
 }

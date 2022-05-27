@@ -10,7 +10,7 @@ enum SubmissionStatus {
     SubmitSucceeded,
 }
 
-const initialState = {
+const initialFormState = {
   email: '',
   firstName: '',
   lastName: '',
@@ -27,7 +27,7 @@ type createMessageForm = {
 
 
 export function ContactForm() {
-  const [values, setValues] = useState(initialState);
+  const [values, setValues] = useState(initialFormState);
   const [submit, setSubmit] = useState(false);
 
   function submitForm() {
