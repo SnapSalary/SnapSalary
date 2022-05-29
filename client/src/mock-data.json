@@ -1,4 +1,13 @@
 [{
+    "id": 1,
+    "company_id": "",
+    "company_name": "Intel",
+    "state": "CA",
+    "country": "USA",
+    "industry_id": "t111"
+},
+{
+     "id": 2,
     "company_id": "a123",
     "company_name": "Google",
     "state": "CA",
@@ -6,15 +15,17 @@
     "industry_id": "t111"
 },
 {
-      "company_id": "a123",
-    "company_name": "Google",
+     "id": 3,
+    "company_id": "a123",
+    "company_name": "Amazon",
     "state": "CA",
     "country": "USA",
     "industry_id": "t111"
 },
 {
+     "id": 4,
     "company_id": "a123",
-    "company_name": "Google",
+    "company_name": "Netflix",
     "state": "CA",
     "country": "USA",
     "industry_id": "t111"

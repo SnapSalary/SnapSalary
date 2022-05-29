@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {useAuth0} from '@auth0/auth0-react';
 import {LoginButton} from './LoginButton';
+import {LogoutButton} from './LogoutButton';
 
 type ButtonProps = {
   handleClick: () => void;
@@ -59,7 +60,7 @@ export const NavBar = () => {
           </div>
 
 
-          <LoginButton></LoginButton>
+          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
           <button onClick={handleSignUp} className='m-5  text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
             Sign Up
           </button>

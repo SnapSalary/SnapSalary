@@ -4,15 +4,30 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import data from '../mockJobtable.json';
 import {getJobs} from '../services/JobService';
-// const data = getJobs();
+import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import '../styles/SalariesList.css';
+
+const columns: GridColDef[] = [
+  {field: 'id', headerName: 'Job ID', width: 70},
+  {field: 'job_title', headerName: 'Job Title', width: 130},
+  {field: 'skill', headerName: 'Skill', width: 130},
+  {
+    field: 'salary',
+    headerName: 'Salary',
+    type: 'number',
+    width: 90,
+  },
+];
+
 
 type jobProp = {
+  id: number,
   company_name: string,
   job_title: string;
   company_id: string;
   salary: string;
   skill: string;
-  job_id: string;
+  job_id: number;
 }
 
 
@@ -36,34 +51,16 @@ export const SalaryList = () => {
 
 
   return (
-    <div className='snap-container m-9 w-22'>
-      <table>
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">Postition
-            </th>
-            <th scope="col" className="px-6 py-3">Salary
-            </th>
-            <th scope="col" className="px-6 py-3">Skill
-            </th>
-
-          </tr>
-
-        </thead>
-        <tbody className=''>
-          {jobs.map((jobs: any) => (
-            <tr key={jobs.id} className="w-24 bg-white border-b dark:bg-gray-800 dark:border-gray-700" >
-              <th className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                {jobs.job_title}
-              </th>
-              <th className="px-6 py-4">{jobs.salary}
-              </th>
-              <th className="px-6 py-4">{jobs.skill}
-              </th>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className='snap-container m-10 '>
+      <div className='salary-list'>
+        <DataGrid
+          sx={{ml: 5}}
+          rows={jobs}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          checkboxSelection />
+      </div>
     </div>
   );
 };

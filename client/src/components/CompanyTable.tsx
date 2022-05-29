@@ -6,9 +6,10 @@ import data from '../mock-data.json'; // Testing reading in data from json file
 import '../styles/table.css';
 import {HttpClient} from '../services/HttpService';
 
-// import {nanoid} from 'nanoid';
+import {nanoid} from 'nanoid';
 
 type companyProp = {
+  id: number,
   company_id: string;
   company_name: string;
   state: string;
@@ -19,6 +20,7 @@ type companyProp = {
 export const CompanyTable = () => {
   const [companies, setCompanies] = useState(data);
   const [addFormData, setAddFormData] = useState({
+    id: 0,
     company_id: '',
     company_name: '',
     state: '',
@@ -59,7 +61,7 @@ export const CompanyTable = () => {
     event.preventDefault();
 
     const newCompanyEntry:companyProp = {
-      // id: nanoid(),
+      id: addFormData.id,
       company_id: addFormData.company_id,
       company_name: addFormData.company_name,
       state: addFormData.state,

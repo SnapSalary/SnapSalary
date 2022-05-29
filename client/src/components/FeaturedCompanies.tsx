@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
-import path from 'path';
 import React, {useEffect, useState} from 'react';
-import {NavLink, Path, Pathname} from 'react-router-dom';
-import {VoidExpression} from 'typescript';
 import intelLogo from '../img/intel/intel.png';
 import googleLogo from '../img/google/google.png';
 import amazonLogo from '../img/amazon/amazon.png';
 import netflixLogo from '../img/netflix/netflix.png';
 import {Salaries} from '../pages/SalariesPage';
 import {CompanyProps} from '../types/StateTypes';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import '../styles/SalariesList.css';
 
-
-const Company = (props: CompanyProps) => {
+const Company = (props: CompanyProps, data: any) => {
   const {
     imgUri1,
     imgAlt1,
@@ -21,12 +21,10 @@ const Company = (props: CompanyProps) => {
     salary,
   } = props;
 
-  const [explore, setExplore] = useState('');
-  const [clickSignIn, setClickSignIn] = useState('');
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const handleViewCompany = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    console.log('See Company Clicked!!!!');
-  };
 
   useEffect(() => {
     console.log('Company rendered');
@@ -49,7 +47,20 @@ const Company = (props: CompanyProps) => {
 
         </div>
         <div className="p-3 border-t mx-8 mt-2">
-          <button onClick={handleViewCompany} className="block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-8 py-2">See Company</button>
+          <div>
+            <Button onClick={handleOpen}>See Company</Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box className='modal-box'>
+                <div>
+                </div>
+              </Box>
+            </Modal>
+          </div>
 
         </div>
       </div>
