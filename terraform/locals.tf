@@ -1,3 +1,3 @@
 locals {
-  create_default_resource = terraform.workspace == "default" ? 1 : 0
+  create_default_resource = terraform.workspace == "main" ? 1 : 0
 }
