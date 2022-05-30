@@ -11,7 +11,7 @@ import {ContactPage} from './pages/ContactPage';
 import {Salaries} from './pages/SalariesPage';
 import {CompaniesPage} from './pages/CompaniesPage';
 import {SearchBar} from './components/SearchBar';
-import { NotFound } from './components/NotFound';
+import {NotFound} from './components/NotFound';
 // import {SiteFooter} from './components/footer';
 // import {CompanyList} from './components/CompanyList';
 
