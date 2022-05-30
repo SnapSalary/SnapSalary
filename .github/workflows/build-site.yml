@@ -43,6 +43,10 @@ jobs:
         run: npm run build
         working-directory: ./client
 
+      - name: Create Terraform Workspace
+        if: workspace
+        run: terraform workspace new env.TF_WORKSPACE
+
       - name: Terraform Init
         id: init
         run: terraform init -input=false
