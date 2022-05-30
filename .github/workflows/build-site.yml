@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
 
+    permissions:
+      pull-requests: write
     steps:
       - name: Set Subdomain if not PR
         if: github.event_name != 'pull_request'
