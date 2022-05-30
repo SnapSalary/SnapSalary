@@ -1,0 +1,22 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+  backend "s3" {
+    bucket = "snapsalary-states"
+    key    = "staging"
+    region = "us-west-2"
+  }
+}
+
+provider "aws" {
+  region = "us-west-2"
+}
+
+provider "aws" {
+  alias  = "us-east"
+  region = "us-east-1"
+}

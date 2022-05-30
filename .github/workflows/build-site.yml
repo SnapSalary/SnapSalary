@@ -9,12 +9,16 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-      TF_DIR: ./tf/$GITHUB_REF_NAME
     name: Build
     runs-on: ubuntu-latest
     environment: production
 
     steps:
+      - name: Set branch
+        run: |
+          if [[ $GITHUB_REF_NAME != 'main' ]]; then
+            echo "TF_WORKSPACE" == $GITHUB_REF_NAME
+          fi
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v2
       - name: Output build files
@@ -38,24 +42,14 @@ jobs:
       - name: Build Application
         run: npm run build
 
-      - name: Terraform fmt
-        id: fmt
-        run: cd ${{ env.TF_DIR }} && terraform fmt -check
-        continue-on-error: true
-
       - name: Terraform Init
         id: init
-        run: cd ${{ env.TF_DIR }} && terraform init
+        run: cd terraform  && terraform init
 
       - name: Terraform Validate
         id: validate
-        run: cd ${{ env.TF_DIR }} && terraform validate -no-color
-
-      - name: Terraform Plan
-        id: plan
-        run: cd ${{ env.TF_DIR }} && terraform plan -no-color -input=false
-        continue-on-error: true
+        run: cd terraform && terraform validate -no-color
 
       - name: Terraform Apply
         id: apply
-        run: cd ${{ env.TF_DIR }} && terraform apply -auto-approve -input=false
+        run: cd terraform && terraform apply -auto-approve -input=false
