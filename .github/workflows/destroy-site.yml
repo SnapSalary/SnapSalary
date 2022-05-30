@@ -17,6 +17,8 @@ jobs:
       - name: Set Workspace
         run: echo "TF_WORKSPACE=${{ github.event.pull_request.id }}" >> "$GITHUB_ENV"
 
+      - uses: action/checkout@v3
+
       - name: Terraform Init
         id: init
         run: terraform init
