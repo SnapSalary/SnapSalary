@@ -9,6 +9,13 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+    permissions:
+      pull-requests: write
+      actions: read
+      checks: read
+      contents: read
+      deployments: read
+      issues: write
     name: Destroy
     runs-on: ubuntu-latest
     environment: production
