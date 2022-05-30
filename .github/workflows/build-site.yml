@@ -35,6 +35,7 @@ jobs:
           node-version: 17.9.0
           cache: 'npm'
           cache-dependency-path: ./client/package-lock.json
+
       - name: Install dependencies 
         run: npm install
         working-directory: ./client
@@ -44,8 +45,9 @@ jobs:
         working-directory: ./client
 
       - name: Create Terraform Workspace
-        if: workspace
+        id: workspace
         run: terraform workspace new env.TF_WORKSPACE
+        working-directory: ./terraform
 
       - name: Terraform Init
         id: init
