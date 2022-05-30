@@ -2,6 +2,8 @@ name: Build and Setup React Application in S3
 on:
   push:
     branches: [ main, staging ]
+  pull_request:
+    types: [opened, reopened, ready_for_review, edited]
 
 jobs:
   build:
@@ -14,13 +16,17 @@ jobs:
     environment: production
 
     steps:
-      - name: Set branch
+      - name: Set Subdomain if not PR
+        if: github.event_name !== 'pull_request'
         run: |
           if [[ $GITHUB_REF_NAME != 'main' ]]; then
             echo "TF_WORKSPACE=$GITHUB_REF_NAME" >> "$GITHUB_ENV"
           else
             echo "TF_WORKSPACE=www" >> "$GITHUB_ENV"
           fi
+      - name: Set Subdomain if PR
+        if: github.event_name === 'pull_request'
+        run: echo "TF_WORKSPACE=${{ github.event.pull_request.id }}" >> "$GITHUB_ENV"
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
       - name: Output build files
@@ -51,3 +57,14 @@ jobs:
         id: apply
         run: terraform apply -auto-approve -input=false
         working-directory: ./terraform
+
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Your test page has been built and is available at: ${{ TF_WORKSPACE }}.${{ secrets.AWS_S3_BUCKET }}'
+            })
+        if: github.event_name !== 'pull_request'
