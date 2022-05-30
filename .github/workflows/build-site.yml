@@ -58,7 +58,9 @@ jobs:
         run: terraform apply -auto-approve -input=false
         working-directory: ./terraform
 
-      - uses: actions/github-script@v6
+      - name: Comment on PR
+        if: github.event_name != 'pull_request'
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.createComment({
@@ -67,4 +69,3 @@ jobs:
               repo: context.repo.repo,
               body: 'Your test page has been built and is available at: ${{ env.TF_WORKSPACE }}.${{ secrets.AWS_S3_BUCKET }}'
             })
-        if: github.event_name != 'pull_request'
