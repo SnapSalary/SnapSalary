@@ -20,13 +20,13 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           if [[ $GITHUB_REF_NAME != 'main' ]]; then
-            echo "TF_WORKSPACE=$GITHUB_REF_NAME" >> "$GITHUB_ENV"
+            echo "TFWORKSPACE=$GITHUB_REF_NAME" >> "$GITHUB_ENV"
           else
-            echo "TF_WORKSPACE=www" >> "$GITHUB_ENV"
+            echo "TFWORKSPACE=www" >> "$GITHUB_ENV"
           fi
       - name: Set Subdomain if PR
         if: github.event_name == 'pull_request'
-        run: echo "TF_WORKSPACE=${{ github.event.pull_request.id }}" >> "$GITHUB_ENV"
+        run: echo "TFWORKSPACE=${{ github.event.pull_request.id }}" >> "$GITHUB_ENV"
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
       - name: Output build files
@@ -44,14 +44,15 @@ jobs:
         run: npm run build
         working-directory: ./client
 
-      - name: Create Terraform Workspace
-        id: workspace
-        run: terraform workspace new ${{ env.TF_WORKSPACE }}
-        working-directory: ./terraform
 
       - name: Terraform Init
         id: init
         run: terraform init -input=false
+        working-directory: ./terraform
+
+      - name: Select or Create Terraform Workspace
+        id: workspace
+        run: terraform workspace select ${{ env.TFWORKSPACE }} || terraform workspace new ${{ env.TFWORKSPACE }}
         working-directory: ./terraform
 
       - name: Terraform Validate
