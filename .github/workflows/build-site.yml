@@ -46,7 +46,7 @@ jobs:
 
       - name: Create Terraform Workspace
         id: workspace
-        run: terraform workspace new env.TF_WORKSPACE
+        run: terraform workspace new
         working-directory: ./terraform
 
       - name: Terraform Init
