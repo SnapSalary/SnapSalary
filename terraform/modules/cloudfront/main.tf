@@ -21,7 +21,7 @@ resource "aws_cloudfront_distribution" "frontend" {
   comment             = "Production frontend for SnapSalary"
   default_root_object = "index.html" 
 
-  aliases = [var.BUCKET_NAME]
+  aliases = terraform.workspace == "www" ? [trim(var.BUCKET_NAME, "www."), var.BUCKET_NAME] : [var.BUCKET_NAME]
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]

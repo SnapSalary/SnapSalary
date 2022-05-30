@@ -12,9 +12,9 @@ data "aws_route53_zone" "select" {
 resource "aws_route53_record" "cname" {
   count = local.create_default_resource
   zone_id = aws_route53_zone.prod[count.index].zone_id
-  name    = var.AWS_S3_BUCKET
+  name    = "www.${var.AWS_S3_BUCKET}"
   type    = "CNAME"
   ttl     = "5"
 
-  records        = ["www.${var.AWS_S3_BUCKET}"]
+  records        = [var.AWS_S3_BUCKET]
 }

@@ -2,8 +2,9 @@ resource "aws_acm_certificate" "cert" {
   count = local.create_default_resource
 
   provider                  = aws.us-east
-  domain_name               = "*.${var.AWS_S3_BUCKET}"
+  domain_name               = var.AWS_S3_BUCKET
   validation_method         = "DNS"
+  subject_alternative_names = ["*.${var.AWS_S3_BUCKET}"]
 
   tags = {
     Environment = "production"
@@ -42,7 +43,7 @@ resource "aws_acm_certificate_validation" "prod" {
 data "aws_acm_certificate" "prod" {
   depends_on = [aws_route53_record.validate_cert]
   provider = aws.us-east
-  domain  = "*.${var.AWS_S3_BUCKET}"
+  domain  = var.AWS_S3_BUCKET
   types   = ["AMAZON_ISSUED"]
   most_recent = true
 }

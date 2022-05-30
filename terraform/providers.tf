@@ -37,7 +37,7 @@ module "cloudfront" {
 module "route53" {
   source  = "./modules/route53"
   ZONE_ID = data.aws_route53_zone.select.zone_id
-  ROUTE   = terraform.workspace == "default" ? var.AWS_S3_BUCKET : module.s3.BUCKET_NAME
+  ROUTE   = terraform.workspace == "www" ? var.AWS_S3_BUCKET : module.s3.BUCKET_NAME
   CF_DOMAIN = module.cloudfront.cloudfront_domain_name
   CF_HOSTED_ZONE = module.cloudfront.cloudfront_hosted_zone
 }
