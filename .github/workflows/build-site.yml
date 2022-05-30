@@ -65,6 +65,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Your test page has been built and is available at: ${{ TF_WORKSPACE }}.${{ secrets.AWS_S3_BUCKET }}'
+              body: 'Your test page has been built and is available at: ${{ env.TF_WORKSPACE }}.${{ secrets.AWS_S3_BUCKET }}'
             })
         if: github.event_name !== 'pull_request'
