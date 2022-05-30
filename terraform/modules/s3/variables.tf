@@ -1,7 +1,12 @@
-variable "AWS_S3_BUCKET_STAGING" {
+variable "AWS_S3_BUCKET" {
   type        = string
-  description = "snapsalary frontend staging"
-  default     = "staging.snapsalary.com"
+  description = "snapsalary frontend"
+  default     = "snapsalary.com"
+}
+
+variable "CLOUDFRONT_ARN" {
+  type        = string
+  description = "ARN for Cloudfront object"
 }
 
 variable "mime_types" {
