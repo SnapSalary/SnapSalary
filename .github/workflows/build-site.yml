@@ -62,7 +62,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            if (context.issue === undefined) {
+            if (context.eventName !== 'pull_request') {
               return
             }
             console.log(context)
