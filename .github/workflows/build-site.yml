@@ -14,9 +14,13 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     environment: production
-
     permissions:
       pull-requests: write
+      actions: read
+      checks: read
+      contents: read
+      deployments: read
+      issues: write
     steps:
       - name: Set Subdomain if not PR
         if: github.event_name != 'pull_request'
