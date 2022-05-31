@@ -1,25 +1,32 @@
 [{
     "id": 1,
-    "companyName": "Google",
-    "category": "Technology",
-    "position": "Front-End Dev",
-    "location": "San Fransisco",
-    "salary": "100,000"
+    "company_id": "",
+    "company_name": "Intel",
+    "state": "CA",
+    "country": "USA",
+    "industry_id": "t111"
 },
 {
-    "id": 2,
-    "companyName": "Amazon",
-    "category": "Technology",
-    "position": "Front-End Dev",
-    "location": "Seattle",
-    "salary": "90,000"
+     "id": 2,
+    "company_id": "a123",
+    "company_name": "Google",
+    "state": "CA",
+    "country": "USA",
+    "industry_id": "t111"
 },
 {
-    "id": 3,
-    "companyName": "Intel",
-    "category": "Technology",
-    "position": "Front-End Dev",
-    "location": "Hillboro",
-    "salary": "100,000"
-}
-]
+     "id": 3,
+    "company_id": "a123",
+    "company_name": "Amazon",
+    "state": "CA",
+    "country": "USA",
+    "industry_id": "t111"
+},
+{
+     "id": 4,
+    "company_id": "a123",
+    "company_name": "Netflix",
+    "state": "CA",
+    "country": "USA",
+    "industry_id": "t111"
+}]

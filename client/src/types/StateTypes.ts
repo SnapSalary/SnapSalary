@@ -1,4 +1,4 @@
-export type State = {
+export type InitialState = {
 
 };
 
@@ -19,3 +19,5 @@ export type CompanyProps = {
 
     exploreButtionClick: () => void
 };
+
+

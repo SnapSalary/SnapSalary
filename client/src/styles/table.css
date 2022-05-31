@@ -12,18 +12,18 @@ table {
 
 th,
 td {
-  border: 1px solid #ffffff;
+  border: 1px solid hsl(0, 0%, 100%);
   text-align: left;
   padding: 8px;
   font-size: 15px;
 }
 
 th {
-  background-color: rgb(117, 201, 250);
+  background-color: rgb(238, 238, 238);
 }
 
 td {
-  background-color: rgb(205, 235, 253);
+  background-color: rgb(228, 228, 228);
 }
 
 form {
