@@ -52,10 +52,10 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
     EXCEPTION
         WHEN duplicate_object THEN null;
     END$$;
-    
+
     `,
       )
-      .then(() => console.log('Successfully initialized DB'))
+      .then(() => console.log('Successfully initialized DB and deleted company rows.'))
       .catch((e) => console.log(e));
 
   await conn.end();

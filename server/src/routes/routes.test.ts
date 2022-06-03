@@ -16,12 +16,11 @@ describe("POST /company", () => {
     test("should respond w/ HTTP Status code(200)",
       async () => {
         const response = await request(app).post('/company').send({
-          company_name: "KK",
+          company_name: "A",
           state: "OR",
           country: "US",
           industry_id: "1",
         })
-        console.log(response);
         expect(response.statusCode).toBe(200);
       })
   })
@@ -37,16 +36,13 @@ describe("GET /company", () => {
           country: "US",
           industry_id: "1",
         })
-        expect(response.statusCode).toBe(200);
-      })
-  })
-});
-
-describe("GET /company", () => {
-  describe("when passed nothing", () => {
-    test("should respond w/ HTTP Status code(200)",
-      async () => {
-        const response = await request(app).get('/company').send()
+        // clean up data
+        const temp = await await request(app).delete('/company').send({
+          company_name: "A",
+          state: "OR",
+          country: "US",
+          industry_id: "1",
+        })
         expect(response.statusCode).toBe(200);
       })
   })

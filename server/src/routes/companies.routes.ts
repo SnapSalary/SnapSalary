@@ -17,6 +17,8 @@ router.get('/companies', async (
 
     await conn.end();
 
+    console.log(resp.rows);
+
     return res.status(200).send({
 
       data: resp.rows,
