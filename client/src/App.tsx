@@ -10,7 +10,6 @@ import {AboutPage} from './pages/AboutPage';
 import {ContactPage} from './pages/ContactPage';
 import {Salaries} from './pages/SalariesPage';
 import {CompaniesPage} from './pages/CompaniesPage';
-import {SearchBar} from './components/SearchBar';
 import {NotFound} from './components/NotFound';
 // import {SiteFooter} from './components/footer';
 // import {CompanyList} from './components/CompanyList';
@@ -25,9 +24,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <SearchBar onApply={function(filterString: string): void {
-          throw new Error('Function not implemented.');
-        } }/>
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
@@ -37,6 +33,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />}></Route>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
+
       </BrowserRouter>
     </>
   );

@@ -10,7 +10,7 @@ enum SubmissionStatus {
     SubmitSucceeded,
 }
 
-const initialState = {
+const initialFormState = {
   email: '',
   firstName: '',
   lastName: '',
@@ -26,8 +26,8 @@ type createMessageForm = {
 }
 
 
-export function ContactForm() {
-  const [values, setValues] = useState(initialState);
+export const ContactForm = () => {
+  const [values, setValues] = useState(initialFormState);
   const [submit, setSubmit] = useState(false);
 
   function submitForm() {
@@ -43,15 +43,15 @@ export function ContactForm() {
     }
   }
 
-  const handleEmailChange = (event: { target: { value: any; }; })=>{
+  const handleEmailChange = () => (event: { target: { value: any; }; }) => {
     setValues({...values, email: event.target.value});
   };
 
-  const handleFirstNameChange = (event: { target: { value: any; }; })=>{
+  const handleFirstNameChange = () => (event: { target: { value: any; }; }) => {
     setValues({...values, firstName: event.target.value});
   };
 
-  const handleLastNameChange = (event: { target: { value: any; }; })=>{
+  const handleLastNameChange = () => (event: { target: { value: any; }; }) => {
     setValues({...values, lastName: event.target.value});
   };
 
@@ -91,7 +91,7 @@ export function ContactForm() {
             <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="email"
               type="email"
-              onChange={handleEmailChange}/>
+              onChange={handleEmailChange} />
             <p className="text-gray-600 text-xs italic">Some tips - as long as needed</p>
           </div>
         </div>
@@ -99,7 +99,7 @@ export function ContactForm() {
           <div className="w-full px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-password">
-                Message
+              Message
             </label>
             <textarea className=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
               id="message">
@@ -119,4 +119,4 @@ export function ContactForm() {
       </form>
     </div>
   );
-}
+};
