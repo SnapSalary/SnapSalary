@@ -1,8 +1,8 @@
 import axios from 'axios';
-const baseURL = 'http://localhost:3001/'; // 'https://snapsalary.com/';
+const backendDB = process.env.REACT_APP_BASE_URL;
 
 export const HttpClient = axios.create({
-  baseURL: baseURL,
+  baseURL: backendDB,
   headers: {
     'Content-type': 'application/json',
   },

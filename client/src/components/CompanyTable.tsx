@@ -39,6 +39,7 @@ export const CompanyTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('this is the http', process.env.REACT_APP_BASE_URL);
         const response = await HttpClient.get('/companies');
         setCompanies(response.data.data);
         console.log(response);
