@@ -3,7 +3,7 @@ import {ContactForm} from '../components/ContactForm';
 import {SiteFooter} from '../components/footer';
 
 
-export function ContactPage() {
+export const ContactPage = () => {
   return (
     <>
       <body>
@@ -13,5 +13,5 @@ export function ContactPage() {
         <SiteFooter />
       </footer></>
   );
-}
+};
 

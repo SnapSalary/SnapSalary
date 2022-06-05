@@ -8,7 +8,7 @@ import jobRoutes from './routes/jobs.routes';
 
 const app: Application = express();
 
-const port = (process.env.PORT !== undefined) ? process.env.PORT : 3000;
+const port = (process.env.PORT !== undefined) ? process.env.PORT : 3030;
 console.log('Current working environment:', process.env.NODE_ENV);
 
 app.use(companyRoutes);

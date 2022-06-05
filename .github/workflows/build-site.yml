@@ -2,6 +2,8 @@ name: Build and Setup React Application in S3
 on:
   push:
     branches: [ main, staging ]
+  pull_request:
+    types: [opened, reopened, ready_for_review, edited, synchronize]
 
 jobs:
   build:
@@ -9,53 +11,76 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-      TF_DIR: ./tf/$GITHUB_REF_NAME
     name: Build
     runs-on: ubuntu-latest
     environment: production
-
+    permissions:
+      pull-requests: write
+      actions: read
+      checks: read
+      contents: read
+      deployments: read
+      issues: write
     steps:
-      - uses: actions/checkout@v2
+      - name: Set Subdomain if not PR
+        if: github.event_name != 'pull_request'
+        run: |
+          if [[ $GITHUB_REF_NAME != 'main' ]]; then
+            echo "TFWORKSPACE=$GITHUB_REF_NAME" >> "$GITHUB_ENV"
+          else
+            echo "TFWORKSPACE=www" >> "$GITHUB_ENV"
+          fi
+      - name: Set Subdomain if PR
+        if: github.event_name == 'pull_request'
+        run: echo "TFWORKSPACE=${{ github.event.pull_request.id }}" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
       - name: Output build files
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 17.9.0
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}
+          cache: 'npm'
+          cache-dependency-path: ./client/package-lock.json
+
       - name: Install dependencies 
         run: npm install
+        working-directory: ./client
 
       - name: Build Application
         run: npm run build
+        working-directory: ./client
 
-      - name: Terraform fmt
-        id: fmt
-        run: cd ${{ env.TF_DIR }} && terraform fmt -check
-        continue-on-error: true
 
       - name: Terraform Init
         id: init
-        run: cd ${{ env.TF_DIR }} && terraform init
+        run: terraform init -input=false
+        working-directory: ./terraform
+
+      - name: Select or Create Terraform Workspace
+        id: workspace
+        run: terraform workspace select ${{ env.TFWORKSPACE }} || terraform workspace new ${{ env.TFWORKSPACE }}
+        working-directory: ./terraform
 
       - name: Terraform Validate
         id: validate
-        run: cd ${{ env.TF_DIR }} && terraform validate -no-color
-
-      - name: Terraform Plan
-        id: plan
-        run: cd ${{ env.TF_DIR }} && terraform plan -no-color -input=false
-        continue-on-error: true
+        run: terraform validate -no-color
+        working-directory: ./terraform
 
       - name: Terraform Apply
         id: apply
-        run: cd ${{ env.TF_DIR }} && terraform apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false
+        working-directory: ./terraform
+
+      - name: Comment on PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (context.eventName !== 'pull_request') {
+              return
+            }
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Your test page has been built and is available at: https://${{ env.TFWORKSPACE }}.${{ secrets.AWS_S3_BUCKET }}'
+            })
