@@ -9,7 +9,29 @@ import {CompanyProps} from '../types/StateTypes';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import '../styles/SalariesList.css';
+import '../styles/SalaryList.css';
+import axios from 'axios';
+
+
+const companyModal = (data: CompanyProps) => {
+  const [company, setCompany] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/jobs');
+        const json = await response;
+        console.log(json);
+        setCompany(json.data);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+};
+
 
 const Company = (props: CompanyProps, data: any) => {
   const {
@@ -73,7 +95,7 @@ export const CompanyList = () => {
   return (
     <>
       <div className='container w-full px-15 mt-10 m-auto'>
-        <div className='flex flex-wrap mx-0'>
+        <div className='flex flex-wrap items-center content-center justify-center m-0'>
           <div className='company1 m-4 '>
             <Company id={0} name={'Intel'} salary={0} state={''} country={''} industry_id={''} imgUri1={''} imgAlt1={''} imgUri2={intelLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');

@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import AuthOProviderWithHistory from './auth0-provider-with-history.js';
 import {Auth0Provider} from '@auth0/auth0-react';
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
