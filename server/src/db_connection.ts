@@ -55,7 +55,7 @@ export const initDBTables = async (dbData: type.rdsSecret): Promise<void> => {
 
     `,
       )
-      .then(() => console.log('Successfully initialized DB and deleted company rows.'))
+      .then(() => console.log('Successfully initialized DB.'))
       .catch((e) => console.log(e));
 
   await conn.end();

@@ -9,65 +9,64 @@ router.use(express.urlencoded({extended: true}));
 router.get('/industry', async (
     req: Request,
     res: Response): Promise<Response> => {
-  console.log(req.body);
-  try {
-    const data = await dbAction(await getRDSSecret(),
-        `SELECT industry FROM industry;`);
+  const data = await dbAction(await getRDSSecret(),
+      `SELECT industry FROM industry;`);
 
+  if (res.status(200)) {
     return res.status(data.status.status_code).send({
       data: data.data,
-      status: data.status,
+      status: {
+        status_code: 200,
+        message: 'Success',
+      },
     });
-  } catch (err) {
-    console.log('Status 500 from GET \'/industry\'');
-    return res.status(500).send();
   }
+  console.log('Status 500 from get \'/industry\'');
+  return res.status(500).send();
 });
 
 
 router.delete('/industry', async (
     req: Request,
     res: Response): Promise<Response> => {
-  console.log(req.body);
-  try {
-    const data = await dbAction(await getRDSSecret(),
-        `DELETE FROM industry WHERE industry_id = $1;`, ['industry_id'],
-        req.body);
+  const data = await dbAction(await getRDSSecret(),
+      `DELETE FROM industry WHERE industry_id = $1;`, ['industry_id'],
+      req.body);
 
-    console.log(data);
-
+  if (res.status(200)) {
     return res.status(data.status.status_code).send({
       data: data.data,
-      status: data.status,
+      status: {
+        status_code: 200,
+        message: 'Success',
+      },
     });
   }
-  // NOTE: try-catch block
-  catch (err) {
-    console.log('Status 500 from DELETE \'/industry\'');
-    return res.status(500).send();
-  }
+  console.log('Status 500 from get \'/industry\'');
+  return res.status(500).send();
 });
 
 router.post('/industry', async (
     req: Request,
     res: Response): Promise<Response> => {
-  console.log(req.body);
-  try {
-    const data = await dbAction(await getRDSSecret(),
-        `INSERT INTO industry
+  const data = await dbAction(await getRDSSecret(),
+      `INSERT INTO industry
       (industry)
       VALUES ($1) RETURNING indust_id;`,
-        ['industry'],
-        req.body);
+      ['industry'],
+      req.body);
 
+  if (res.status(200)) {
     return res.status(data.status.status_code).send({
       data: data.data,
-      status: data.status,
+      status: {
+        status_code: 200,
+        message: 'Success',
+      },
     });
-  } catch (err) {
-    console.log('Status 500 from POST \'/industry\'');
-    return res.status(500).send();
   }
+  console.log('Status 500 from get \'/industry\'');
+  return res.status(500).send();
 });
 
 export default router;

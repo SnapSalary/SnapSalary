@@ -9,53 +9,62 @@ router.use(express.urlencoded({extended: true}));
 router.get('/job', async (
     req: Request,
     res: Response): Promise<Response> => {
-  console.log(req.body);
   const data = await dbAction(await getRDSSecret(),
       `SELECT  job_title FROM job;`);
 
-  return res.status(data.status.status_code).send({
-    data: data.data,
-    status: data.status,
-  });
+  if (res.status(200)) {
+    return res.status(data.status.status_code).send({
+      data: data.data,
+      status: {
+        status_code: 200,
+        message: 'Success',
+      },
+    });
+  }
+  console.log('Status 500 from get \'/job\'');
+  return res.status(500).send();
 });
 
 router.delete('/job', async (
     req: Request,
     res: Response): Promise<Response> => {
-  console.log(req.body);
   const data = await dbAction(await getRDSSecret(),
-      `DELETE FROM job WHERE job_id = $1`, ['job_id'],
+      `DELETE FROM job WHERE job_id = $1;`, ['job_id'],
       req.body);
 
-  console.log(data);
-
-  return res.status(data.status.status_code).send({
-    data: data.data,
-    status: data.status,
-  });
+  if (res.status(200)) {
+    return res.status(data.status.status_code).send({
+      data: data.data,
+      status: {
+        status_code: 200,
+        message: 'Success',
+      },
+    });
+  }
+  console.log('Status 500 from delete \'/job\'');
+  return res.status(500).send();
 });
 
 router.post('/job', async (
     req: Request,
     res: Response): Promise<Response> => {
-  console.log(req.body);
-  try {
-    const data = await dbAction(await getRDSSecret(),
-        `INSERT INTO job
-      (job_title, company_id, salary, stocks, bonus, skill)
-      VALUES ($1, $2, $3, $4) RETURNING job_id;`,
-        ['job_title', 'company_id', 'salary', 'stocks', 'bonus', 'skill'],
-        req.body);
+  const data = await dbAction(await getRDSSecret(),
+      `INSERT INTO job
+    (job_title, company_id, salary, stocks, bonus, skill)
+    VALUES ($1, $2, $3, $4) RETURNING job_id;`,
+      ['job_title', 'company_id', 'salary', 'stocks', 'bonus', 'skill'],
+      req.body);
+  if (res.status(200)) {
     return res.status(data.status.status_code).send({
       data: data.data,
-      status: data.status,
+      status: {
+        status_code: 200,
+        message: 'Success',
+      },
     });
   }
-  // NOTE: try-catch block
-  catch (err) {
-    console.log('Status 500 from POST \'/company\'');
-    return res.status(500).send();
-  }
+  console.log('Status 500 from post \'/job\'');
+  return res.status(500).send();
 });
 
 export default router;
