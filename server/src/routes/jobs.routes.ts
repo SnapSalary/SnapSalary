@@ -10,10 +10,12 @@ router.get('/job', async (
     req: Request,
     res: Response): Promise<Response> => {
   const data = await dbAction(await getRDSSecret(),
-      `SELECT  job_title FROM job;`);
+      `SELECT job_title FROM job;`);
 
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+  console.log(res.statusMessage);
+  if (res.status(200).statusCode === 200) {
+    console.log('passed if in POST \job');
+    return res.status(200).send({
       data: data.data,
       status: {
         status_code: 200,
@@ -32,8 +34,9 @@ router.delete('/job', async (
       `DELETE FROM job WHERE job_id = $1;`, ['job_id'],
       req.body);
 
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+
+  if (res.status(200).statusCode === 200) {
+    return res.status(200).send({
       data: data.data,
       status: {
         status_code: 200,
@@ -54,8 +57,11 @@ router.post('/job', async (
     VALUES ($1, $2, $3, $4) RETURNING job_id;`,
       ['job_title', 'company_id', 'salary', 'stocks', 'bonus', 'skill'],
       req.body);
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+
+  console.log(res.statusCode);
+
+  if (res.status(200).statusCode === 200) {
+    return res.status(200).send({
       data: data.data,
       status: {
         status_code: 200,

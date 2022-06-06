@@ -18,7 +18,7 @@ router.get('/companies', async (
 
   console.log(resp.rows);
 
-  if (res.status(200)) {
+  if (res.status(200).statusCode === 200) {
     return res.status(200).send({
 
       data: resp.rows,
@@ -45,7 +45,7 @@ router.get('/company', async (
 
   await conn.end();
 
-  if (res.status(200)) {
+  if (res.status(200).statusCode === 200) {
     return res.status(200).send({
       data: resp.rows,
       status: {
@@ -66,8 +66,8 @@ router.delete('/company', async (
       `DELETE FROM companies WHERE company_id = $1;`, ['company_id'],
       req.body);
 
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+  if (res.status(200).statusCode === 200) {
+    return res.status(200).send({
       data: data.data,
       status: data.status,
     });
@@ -79,7 +79,6 @@ router.delete('/company', async (
 router.post('/company', async (
     req: Request,
     res: Response): Promise<Response> => {
-  console.log(req.body);
   const data = await dbAction(await getRDSSecret(),
       `INSERT INTO companies 
     (company_name, state, country, industry_id)
@@ -87,8 +86,8 @@ router.post('/company', async (
       ['company_name', 'state', 'country', 'industry_id'],
       req.body);
 
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+  if (res.status(200).statusCode === 200) {
+    return res.status(200).send({
       data: data.data,
       status: data.status,
     });

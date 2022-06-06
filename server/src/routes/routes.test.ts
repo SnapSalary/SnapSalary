@@ -70,7 +70,6 @@ describe('the module', () => {
 
 
 
-/*
 // NOTE: Previous tests
 // Tasks before: (i) re-init table (seeding from doggr for instance)
 describe("POST /company", () => {
@@ -134,4 +133,43 @@ describe("GET /industry", () => {
   })
 });
 
-*/
+describe("POST /job", () => {
+  describe("when passed job type", () => {
+    test("should respond w/ HTTP Status code(200)",
+      async () => {
+        const response = await request(app).post('/job').send({
+          job_title: "ABCedfe",
+          company_id: "999",
+          salary: 80000,
+          stocks: 0.1,
+          bonus: 0.2,
+          skill: "Lead",
+          job_id: "19929",
+        })
+        expect(response.statusCode).toBe(200)
+      })
+  })
+});
+
+describe("GET /job", () => {
+  describe("when passed job type", () => {
+    test("should respond w/ HTTP Status code(200)",
+      async () => {
+        // clean up data
+        const response = await request(app).delete('/job').send();
+        expect(response.statusCode).toBe(200)
+      })
+  })
+});
+
+describe("DELETE /job", () => {
+  describe("when passed company type", () => {
+    test("should respond w/ HTTP Status code(200)",
+      async () => {
+        const response = await request(app).delete('/job').send({
+          job_id: "19929",
+        })
+        expect(response.statusCode).toBe(200)
+      })
+  })
+});

@@ -12,8 +12,8 @@ router.get('/industry', async (
   const data = await dbAction(await getRDSSecret(),
       `SELECT industry FROM industry;`);
 
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+  if (res.status(200).statusCode === 200) {
+    return res.status(200).send({
       data: data.data,
       status: {
         status_code: 200,
@@ -33,8 +33,8 @@ router.delete('/industry', async (
       `DELETE FROM industry WHERE industry_id = $1;`, ['industry_id'],
       req.body);
 
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+  if (res.status(200).statusCode === 200) {
+    return res.status(200).send({
       data: data.data,
       status: {
         status_code: 200,
@@ -56,8 +56,8 @@ router.post('/industry', async (
       ['industry'],
       req.body);
 
-  if (res.status(200)) {
-    return res.status(data.status.status_code).send({
+  if (res.status(200).statusCode === 200) {
+    return res.status(200).send({
       data: data.data,
       status: {
         status_code: 200,

@@ -1,8 +1,10 @@
 import {HttpClient} from './HttpService';
 
-export async function getCompanyProfile() {
-  const res = await HttpClient.get('/companies');
-  const data = await res.data;
-  console.log(data);
-  return data;
-}
+export const getCompanyProfile = async () => {
+  try {
+    const response = await HttpClient.get('/companies');
+    console.log(response);
+  } catch (error) {
+    console.log('error', error);
+  }
+};
