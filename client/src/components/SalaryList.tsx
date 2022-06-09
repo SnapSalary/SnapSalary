@@ -10,6 +10,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+
+export enum SubmissionStatus {
+  NotSubmitted,
+  SubmitFailed,
+  SubmitSucceeded
+}
 
 export const Dropdown = ()=> {
   const [industry, setIndustry] = useState('');
@@ -108,14 +117,74 @@ type jobProp = {
 export const SalaryList = () => {
   // const [jobs, setJobs] = useState(data);
   const [jobs, setJobs] = useState([]);
+  const [newJob, setNewJobs] = useState<(jobProp)[]>([]);
+  const [submitted, setSubmitted] = useState(SubmissionStatus.NotSubmitted);
+
+  const [addFormData, setAddFormData] = useState({
+    id: 0,
+    company_name: '',
+    job_title: '',
+    company_id: '',
+    salary: '',
+    skill: '',
+    job_id: 0,
+  });
+
+  const handleFormChange = (event: any) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute('name');
+    const fieldValue = event.target.value;
+
+    const newFormData: any = {...addFormData};
+    newFormData[fieldName] = fieldValue;
+
+    setAddFormData(newFormData);
+  };
+
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
+
+    const newJobEntry: jobProp = {
+      id: addFormData.id,
+      company_name: addFormData.company_id,
+      job_title: addFormData.job_title,
+      company_id: addFormData.company_id,
+      skill: addFormData.skill,
+      job_id: addFormData.job_id,
+      salary: addFormData.salary,
+    };
+
+    const newJobToAdd = [...newJob, newJobEntry];
+
+    const postJob = async () => {
+      console.log('About to client post to create new company info', newJobEntry);
+      HttpClient.post('/job'
+          , {},
+      ).then((response) => {
+        console.log('Got response from upload file:', response.status);
+        if (response.status === 200) {
+          setSubmitted(SubmissionStatus.SubmitSucceeded);
+        } else {
+          setSubmitted(SubmissionStatus.SubmitFailed);
+        }
+      }).catch((error) => {
+        console.log(error.response.data);
+      });
+    };
+
+    postJob();
+    setNewJobs(newJobToAdd);
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await HttpClient.get('/jobs');
+        const response = await HttpClient.get('/job');
         const json = response;
-        console.log(json);
-        setJobs(json.data);
+        console.log(json.data);
+        setJobs(json.data.data);
       } catch (error) {
         console.log('error', error);
       }
@@ -140,6 +209,24 @@ export const SalaryList = () => {
               checkboxSelection />
           </div>
         </div>
+      </div>
+      <div>
+        <Box className='flex flex-wrap items-center content-center justify-center '
+          component="form"
+          sx={{
+            '& > :not(style)': {m: 1, width: '20ch'},
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleFormSubmit}
+        >
+          <h2 className='bold'>Add new job listing</h2>
+          <TextField id="outlined-basic" label="Job ID" variant="outlined" onChange={handleFormChange} />
+          <TextField id="outlined-basic" label="Job Title" variant="outlined" onChange={handleFormChange} />
+          <TextField id="outlined-basic" label="Skill" variant="outlined" onChange={handleFormChange} />
+          <TextField id="outlined-basic" label="Salary" variant="outlined" onChange={handleFormChange} />
+          <button type="submit">Add</button>
+        </Box>
       </div>
     </>
   );

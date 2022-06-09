@@ -13,7 +13,28 @@ import '../styles/SalaryList.css';
 import axios from 'axios';
 
 
-const companyModal = (data: CompanyProps) => {
+type jobProp = {
+  id: number,
+  company_name: string,
+  job_title: string;
+  company_id: string;
+  salary: string;
+  skill: string;
+  job_id: number;
+}
+
+const amazon: jobProp = {
+  id: 1,
+  company_name: 'Amazon',
+  job_title: 'Software Engineer',
+  company_id: 'AMZ12345',
+  salary: '179,125',
+  skill: 'SE',
+  job_id: 12345,
+};
+
+/*
+const companyModal = () => {
   const [company, setCompany] = useState();
 
   useEffect(() => {
@@ -31,7 +52,30 @@ const companyModal = (data: CompanyProps) => {
     fetchData();
   }, []);
 };
+*/
 
+const CompanyModal = (prop: jobProp) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>See Company</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className='modal-box'>
+          <div>
+          </div>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
 
 const Company = (props: CompanyProps, data: any) => {
   const {
@@ -42,10 +86,6 @@ const Company = (props: CompanyProps, data: any) => {
     name,
     salary,
   } = props;
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
 
   useEffect(() => {
@@ -70,18 +110,7 @@ const Company = (props: CompanyProps, data: any) => {
         </div>
         <div className="p-3 border-t mx-8 mt-2">
           <div>
-            <Button onClick={handleOpen}>See Company</Button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box className='modal-box'>
-                <div>
-                </div>
-              </Box>
-            </Modal>
+            <CompanyModal id={0} company_name={''} job_title={''} company_id={''} salary={''} skill={''} job_id={0}/>
           </div>
 
         </div>
@@ -97,24 +126,26 @@ export const CompanyList = () => {
       <div className='container w-full px-15 mt-10 m-auto'>
         <div className='flex flex-wrap items-center content-center justify-center m-0'>
           <div className='company1 m-4 '>
-            <Company id={0} name={'Intel'} salary={0} state={''} country={''} industry_id={''} imgUri1={''} imgAlt1={''} imgUri2={intelLogo} imgAlt2={''} exploreButtionClick={function(): void {
+            <Company id={0} name={'Intel'} salary={268000} state={''} country={''} industry_id={''} imgUri1={''} imgAlt1={''} imgUri2={intelLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
             }}></Company>
           </div>
           <div className='company2 m-4'>
             <Company id={1} name={'Google'} imgUri1={''} imgAlt1={''} imgUri2={googleLogo} imgAlt2={''} exploreButtionClick={function(): void {
               throw new Error('Function not implemented.');
-            }} salary={0} state={''} country={''} industry_id={''}></Company>
+            }} salary={320000} state={''} country={''} industry_id={''}></Company>
           </div>
           <div className='company3 m-4'>
-            <Company id={0} name={'Amazon'} imgUri1={''} imgAlt1={''} imgUri2={amazonLogo} imgAlt2={''} exploreButtionClick={function(): void {
-              throw new Error('Function not implemented.');
-            }} salary={0} state={''} country={''} industry_id={''}></Company>
+            <Company id={2} name={'Amazon'} imgUri1={''} imgAlt1={''} imgUri2={amazonLogo} imgAlt2={''}
+              salary={179125} state={''} country={''} industry_id={''} exploreButtionClick={function(): void {
+                throw new Error('Function not implemented.');
+              } }></Company>
           </div>
           <div className='company4 m-4'>
-            <Company id={0} name={'NetFlix'} imgUri1={''} imgAlt1={''} imgUri2={netflixLogo} imgAlt2={''} exploreButtionClick={function(): void {
-              throw new Error('Function not implemented.');
-            }} salary={0} state={''} country={''} industry_id={''}></Company>
+            <Company id={3} name={'NetFlix'} imgUri1={''} imgAlt1={''} imgUri2={netflixLogo} imgAlt2={''}
+              salary={1500000} state={''} country={''} industry_id={''} exploreButtionClick={function(): void {
+                throw new Error('Function not implemented.');
+              } }></Company>
           </div>
         </div>
       </div>
