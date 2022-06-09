@@ -76,6 +76,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$AWS_ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$AWS_ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        working-directory: ./server
 
       - name: Terraform Init
         id: init
