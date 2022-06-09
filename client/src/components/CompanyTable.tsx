@@ -2,11 +2,11 @@
 /* eslint-disable react/jsx-key */
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import data from '../mock-data.json'; // Testing reading in data from json file
 import '../styles/table.css';
 import {HttpClient} from '../services/HttpService';
 
 import {nanoid} from 'nanoid';
+import {create} from 'domain';
 
 type companyProp = {
   id: number,
@@ -17,8 +17,16 @@ type companyProp = {
   industry_id: string;
 }
 
+
+export enum SubmissionStatus {
+  NotSubmitted,
+  SubmitFailed,
+  SubmitSucceeded
+}
+
 export const CompanyTable = () => {
-  const [companies, setCompanies] = useState(data);
+  const [companies, setCompanies] = useState<(companyProp)[]>([]);
+  const [submitted, setSubmitted] = useState(SubmissionStatus.NotSubmitted);
   const [addFormData, setAddFormData] = useState({
     id: 0,
     company_id: '',
@@ -28,16 +36,15 @@ export const CompanyTable = () => {
     industry_id: '',
   });
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('this is the http', process.env.REACT_APP_BASE_URL);
         const response = await HttpClient.get('/companies');
-        const json = await response;
-        console.log(json);
-        setCompanies(response.data);
+        setCompanies(response.data.data);
+        console.log(response);
       } catch (error) {
-        console.log('error', error);
+        console.log('Error', error);
       }
     };
 
@@ -71,11 +78,30 @@ export const CompanyTable = () => {
     };
 
     const newCompany = [...companies, newCompanyEntry];
+
+
+    const postCompany = async () => {
+      console.log('About to client post to create new company info', newCompanyEntry);
+      HttpClient.post('/company'
+          , {company_name: newCompanyEntry.company_name, state: newCompanyEntry.state, country: newCompanyEntry.country, industry_id: newCompanyEntry.industry_id},
+      ).then((response) => {
+        console.log('Got response from upload file:', response.status);
+        if (response.status === 200) {
+          setSubmitted(SubmissionStatus.SubmitSucceeded);
+        } else {
+          setSubmitted(SubmissionStatus.SubmitFailed);
+        }
+      }).catch((error) => {
+        console.log(error.response.data);
+      });
+    };
+
+    postCompany();
     setCompanies(newCompany);
   };
 
-  return <>
-    <div className='table-container'>
+  return (
+    <><div className='table-container'>
       <table className="companyTable w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -94,7 +120,7 @@ export const CompanyTable = () => {
         </thead>
         <tbody>
           {companies.map((company: any) => (
-            <tr key = {company} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr key={company.data} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{company.company_name}
               </th>
               <td className="px-6 py-4">{company.company_id}</td>
@@ -107,42 +133,35 @@ export const CompanyTable = () => {
           ))}
         </tbody>
       </table>
-    </div>
-    <br/>
-    <form onSubmit={handleFormSubmit}>
-      <input
-        type="text"
-        name="company_name"
-        placeholder="Enter a company Name..."
-        onChange={handleFormChange}
-      />
-      <input
-        type="text"
-        name="company_id"
-        placeholder="Enter the company id"
-        onChange={handleFormChange}
-      />
-      <input
-        type="text"
-        name="state"
-        placeholder="Enter the state location"
-        onChange={handleFormChange}
-      />
-      <input
-        type="text"
-        name="country"
-        placeholder="Enter the country"
-        onChange={handleFormChange}
-      />
-      <input
-        type="text"
-        name="industry_id"
-        placeholder="Enter a industry id"
-        onChange={handleFormChange}
-      />
-      <button type="submit" >Add</button>
-    </form>
-  </>;
+      <form onSubmit={handleFormSubmit}>
+        <input
+          type="text"
+          name="company_name"
+          placeholder="Enter a company Name..."
+          onChange={handleFormChange} />
+        <input
+          type="text"
+          name="company_id"
+          placeholder="Enter the company id"
+          onChange={handleFormChange} />
+        <input
+          type="text"
+          name="state"
+          placeholder="Enter the state location"
+          onChange={handleFormChange} />
+        <input
+          type="text"
+          name="country"
+          placeholder="Enter the country"
+          onChange={handleFormChange} />
+        <input
+          type="text"
+          name="industry_id"
+          placeholder="Enter a industry id"
+          onChange={handleFormChange} />
+        <button type="submit">Add</button>
+      </form>;
+    </div><br /></>
+  );
 };
-
 
