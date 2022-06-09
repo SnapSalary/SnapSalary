@@ -1,3 +1,4 @@
+import { float } from "aws-sdk/clients/lightsail";
 import { type } from "os";
 
 export interface rdsSecret {
@@ -34,6 +35,8 @@ export interface job{
   job_title: string;
   company_id: string;
   salary: string;
+  stocks: float;
+  bonus: float;
   skill: skill_types;
   job_id: string;
 }

@@ -6,13 +6,15 @@ const router = Router();
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
 
-router.get('/industry', async (
+router.get('/job', async (
     req: Request,
     res: Response): Promise<Response> => {
   const data = await dbAction(await getRDSSecret(),
-      `SELECT industry FROM industry;`);
+      `SELECT job_title FROM job;`);
 
+  console.log(res.statusMessage);
   if (res.status(200).statusCode === 200) {
+    console.log('passed if in POST \job');
     return res.status(200).send({
       data: data.data,
       status: {
@@ -21,17 +23,17 @@ router.get('/industry', async (
       },
     });
   }
-  console.log('Status 500 from get \'/industry\'');
+  console.log('Status 500 from get \'/job\'');
   return res.status(500).send();
 });
 
-
-router.delete('/industry', async (
+router.delete('/job', async (
     req: Request,
     res: Response): Promise<Response> => {
   const data = await dbAction(await getRDSSecret(),
-      `DELETE FROM industry WHERE industry_id = $1;`, ['industry_id'],
+      `DELETE FROM job WHERE job_id = $1;`, ['job_id'],
       req.body);
+
 
   if (res.status(200).statusCode === 200) {
     return res.status(200).send({
@@ -42,19 +44,21 @@ router.delete('/industry', async (
       },
     });
   }
-  console.log('Status 500 from get \'/industry\'');
+  console.log('Status 500 from delete \'/job\'');
   return res.status(500).send();
 });
 
-router.post('/industry', async (
+router.post('/job', async (
     req: Request,
     res: Response): Promise<Response> => {
   const data = await dbAction(await getRDSSecret(),
-      `INSERT INTO industry
-      (industry)
-      VALUES ($1) RETURNING indust_id;`,
-      ['industry'],
+      `INSERT INTO job
+    (job_title, company_id, salary, stocks, bonus, skill)
+    VALUES ($1, $2, $3, $4) RETURNING job_id;`,
+      ['job_title', 'company_id', 'salary', 'stocks', 'bonus', 'skill'],
       req.body);
+
+  console.log(res.statusCode);
 
   if (res.status(200).statusCode === 200) {
     return res.status(200).send({
@@ -65,7 +69,7 @@ router.post('/industry', async (
       },
     });
   }
-  console.log('Status 500 from get \'/industry\'');
+  console.log('Status 500 from post \'/job\'');
   return res.status(500).send();
 });
 
