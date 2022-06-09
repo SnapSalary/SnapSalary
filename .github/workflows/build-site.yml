@@ -80,7 +80,7 @@ jobs:
 
       - name: Test output
         run: |
-          echo "$IMAGE_TAG"
+          echo "${{ github.sha }}"
 
       - name: Terraform Init
         id: init
