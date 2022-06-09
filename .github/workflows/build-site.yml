@@ -52,10 +52,6 @@ jobs:
         run: npm run build
         working-directory: ./client
 
-      - name: Install dependencies - server
-        run: npm install
-        working-directory: ./server
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
         with:
@@ -77,10 +73,6 @@ jobs:
           docker push $ECR_REGISTRY/$AWS_ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         working-directory: ./server
-
-      - name: Test output
-        run: |
-          echo "${{ github.sha }}"
 
       - name: Terraform Init
         id: init
