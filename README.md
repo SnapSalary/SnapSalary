@@ -23,3 +23,5 @@ To deploy to your own cloud, fork the repo to your github page and add the follo
 `AWS_SECRET_ACCESS_KEY`
 
 and run the github action. Currently only the frontend deploys. The backend gets stored in ECR, but doesn't get deployed.
+
+A working frontend can be seen at https://snapsalary.com, and a working staging branch can be seen at https://staging.snapsalary.com
